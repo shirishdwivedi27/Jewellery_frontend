@@ -37,4 +37,7 @@ export const removeFromCart = (productId) => api.delete(`/cart/${productId}`);
 export const getOrders = () => api.get("/orders");
 export const createOrder = (data) => api.post("/orders", data);
 
+// ---- CONTACT ----
+export const submitContact = (data) => api.post("/api/contact", data);
+
 export default api;

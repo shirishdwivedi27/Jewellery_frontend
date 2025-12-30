@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getProducts } from "../api/api";
 import ProductCard from "../components/ProductCard";
 import Footer from "../components/Footer";
 import "../styles/Home.css";
 
 export default function Home() {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,19 +28,23 @@ export default function Home() {
 
   return (
     <div className="home">
-      {/* Hero Section */}
-      <section className="hero">
-        <div 
-          className="hero-background"
-          style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=1200&h=600&fit=crop')"
-          }}
-        >
-          <div className="hero-overlay"></div>
-          <div className="hero-content">
-            <h1 className="hero-title">Where Style Meets Shine</h1>
-            <p className="hero-subtitle">Golden Echoes of Heritage</p>
-            <button className="hero-btn">Explore Collection</button>
+      {/* Hero Carousel Section */}
+      <section className="hero-carousel-section">
+        <div className="hero-carousel-wrapper">
+          <div className="hero-carousel">
+            <div className="hero-carousel-item">
+              <img src="https://kadambarijewels.in/wp-content/uploads/2025/07/4-ba-scaled.jpg" alt="From Royal Roots" />
+            </div>
+            <div className="hero-carousel-item">
+              <img src="https://kadambarijewels.in/wp-content/uploads/2025/07/5-ba-scaled.jpg" alt="Timeless Tasteful Treasured" />
+            </div>
+            <div className="hero-carousel-item">
+              <img src="https://kadambarijewels.in/wp-content/uploads/2025/07/1-ba-scaled.jpg" alt="Where Style Meets Shine" />
+            </div>
+            {/* Duplicate for seamless loop */}
+            <div className="hero-carousel-item">
+              <img src="https://kadambarijewels.in/wp-content/uploads/2025/07/4-ba-scaled.jpg" alt="From Royal Roots" />
+            </div>
           </div>
         </div>
       </section>
@@ -50,11 +56,19 @@ export default function Home() {
           
           {error && <p className="error-message">Error: {error}</p>}
           
-          <div className="products-grid">
-            {products.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-          </div>
+          {products.length > 8 ? (
+            <div className="products-carousel">
+              {products.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          ) : (
+            <div className="products-grid">
+              {products.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          )}
 
           {products.length === 0 && !error && (
             <p className="no-products">No products available</p>
@@ -72,7 +86,7 @@ export default function Home() {
             ))}
           </div>
           <div className="explore-btn-container">
-            <button className="explore-all-btn">EXPLORE ALL PRODUCTS</button>
+            <button className="explore-all-btn" onClick={() => navigate("/products")}>EXPLORE ALL PRODUCTS</button>
           </div>
         </div>
       </section>
