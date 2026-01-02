@@ -12,6 +12,7 @@ import CategoryPage from "./pages/CategoryPage";
 import SizingChart from "./pages/SizingChart";
 import Contact from "./pages/Contact";
 import Policies from "./pages/Policies";
+import FloatingContact from "./components/FloatingContact";
 
 export default function App() {
   return (
@@ -37,6 +38,7 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/policy/:type" element={<Policies />} />
       </Routes>
+      <FloatingContact />
     </>
   );
 }
