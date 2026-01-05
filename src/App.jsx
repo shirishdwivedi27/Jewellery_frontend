@@ -13,6 +13,7 @@ import SizingChart from "./pages/SizingChart";
 import Contact from "./pages/Contact";
 import Policies from "./pages/Policies";
 import FloatingContact from "./components/FloatingContact";
+import AdminDashboard from "./auth/Admin";
 
 export default function App() {
   return (
@@ -32,7 +33,7 @@ export default function App() {
         
         {/* Footer Links - Categories */}
         <Route path="/category/:category" element={<CategoryPage />} />
-        
+        <Route path="/admin" element={<AdminDashboard/>} />
         {/* Footer Links - Info Pages */}
         <Route path="/sizing-chart" element={<SizingChart />} />
         <Route path="/contact" element={<Contact />} />

@@ -1,0 +1,294 @@
+/* ===== ADMIN DASHBOARD CSS ===== */
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f6f8;
+}
+
+.admin-container {
+  padding: 20px;
+}
+
+/* Header
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111827;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+} */
+
+.admin-header h1 {
+  color: #ffffff;           /* 👈 force white text */
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin: 0;
+
+  position: relative;
+  z-index: 2;               /* 👈 ensures it stays above background */
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: linear-gradient(
+    135deg,
+    #0f172a,
+    #020617
+  );
+
+  padding: 26px 32px;
+  border-radius: 16px;
+}
+
+.logout-btn {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+
+  padding: 6px 14px;        /* 👈 compact */
+  border-radius: 999px;    /* 👈 pill shape */
+  font-size: 14px;
+  font-weight: 500;
+
+  display: inline-flex;    /* 👈 CRITICAL */
+  align-items: center;
+  gap: 6px;
+
+  width: auto;             /* 👈 PREVENT STRETCH */
+  min-width: unset;        /* 👈 PREVENT STRETCH */
+
+  cursor: pointer;
+  white-space: nowrap;
+
+  transition: background 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: #dc2626;
+}
+
+
+/* Stats
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin: 20px 0;
+} */
+
+/* .stat {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+} */
+
+.stat p {
+  margin: 0;
+  color: gray;
+}
+
+.stat h2 {
+  margin: 5px 0 0;
+}
+
+/* Tabs */
+.tabs {
+  margin-bottom: 15px;
+}
+
+.tabs button {
+  padding: 10px 16px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #e5e7eb;
+}
+
+.tabs .active {
+  background: #111827;
+  color: white;
+}
+
+/* Card */
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Buttons */
+.primary-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.product-cell {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.product-cell img {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+/* Stock */
+.stock {
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: white;
+  font-size: 13px;
+}
+
+.stock.low {
+  background: #ef4444;
+}
+
+.stock.ok {
+  background: #16a34a;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35); /* dark overlay ho jayega*/
+  backdrop-filter: blur(6px);     /*  BLUR EFFECT AYEGA */
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+
+.modal {
+  background: white;
+  padding: 20px;
+  width: 420px;
+  border-radius: 12px;
+  animation: popup 0.25s ease-out;
+}
+
+@keyframes popup {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.field {
+  margin-bottom: 12px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+
+/* Form row */
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* ===== DASHBOARD STATS ===== */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin: 25px 0;
+}
+
+.stat {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 22px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* LEFT SIDE (TEXT) */
+.stat-left p {
+  font-size: 15px;
+  color: #6b7280; /* soft gray */
+  margin: 0 0 10px 0;
+}
+
+.stat-left h2 {
+  font-size: 34px;       /* BIG NUMBER */
+  font-weight: 800;
+  color: #111827;
+  margin: 0;
+}
+
+/* RIGHT SIDE ICON */
+.stat-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: #f6e5cf;   /* gold-ish */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: #c89b3c;
+}
