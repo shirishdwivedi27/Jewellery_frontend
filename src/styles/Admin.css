@@ -1,5 +1,3 @@
-/* ===== ADMIN DASHBOARD CSS ===== */
-
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -22,14 +20,14 @@ body {
 } */
 
 .admin-header h1 {
-  color: #ffffff;           /* 👈 force white text */
+  color: #ffffff;           /*  force white text */
   font-size: 34px;
   font-weight: 600;
   letter-spacing: 0.5px;
   margin: 0;
 
   position: relative;
-  z-index: 2;               /* 👈 ensures it stays above background */
+  z-index: 2;               /* remindfor next tim -> ensures it stays above background */
 }
 
 .admin-header {
@@ -52,17 +50,17 @@ body {
   color: #fff;
   border: none;
 
-  padding: 6px 14px;        /* 👈 compact */
-  border-radius: 999px;    /* 👈 pill shape */
+  padding: 6px 14px;        /*  compact */
+  border-radius: 999px;    /*  pill shape */
   font-size: 14px;
   font-weight: 500;
 
-  display: inline-flex;    /* 👈 CRITICAL */
+  display: inline-flex;    /*  CRITICAL */
   align-items: center;
   gap: 6px;
 
-  width: auto;             /* 👈 PREVENT STRETCH */
-  min-width: unset;        /* 👈 PREVENT STRETCH */
+  width: auto;             /*  PREVENT STRETCH */
+  min-width: unset;        /*  PREVENT STRETCH */
 
   cursor: pointer;
   white-space: nowrap;
@@ -247,7 +245,6 @@ th, td {
   margin-top: 10px;
 }
 
-/* ===== DASHBOARD STATS ===== */
 
 .stats {
   display: grid;
