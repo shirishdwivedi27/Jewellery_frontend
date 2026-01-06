@@ -50,6 +50,9 @@ import Contact from "./pages/Contact";
 import Policies from "./pages/Policies";
 import FloatingContact from "./components/FloatingContact";
 import Footer from "./components/Footer";
+import AdminDashboard from "./auth/Admin";
+
+
 
 export default function App() {
   return (
@@ -74,6 +77,9 @@ export default function App() {
         <Route path="/sizing-chart" element={<SizingChart />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/policy/:type" element={<Policies />} />
+        <Route path="/admin" element={<AdminDashboard/>} />
+
+
       </Routes>
       <FloatingContact />
       <Footer/>

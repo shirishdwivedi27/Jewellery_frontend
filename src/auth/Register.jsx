@@ -23,6 +23,9 @@ export default function Register() {
     setLoading(true);
     try {
       await register(username, email, password);
+      if(email === "admin123@gmail.com"){
+        navigate("/admin");
+      }
       navigate("/products-dashboard");
     } catch (err) {
       setError(err.response?.data?.message || err.message || "Registration failed");

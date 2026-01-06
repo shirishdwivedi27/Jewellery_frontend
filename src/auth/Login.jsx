@@ -18,6 +18,9 @@ export default function Login() {
 
     try {
       await login(email, password);
+      if(email === "admin123@gmail.com"){
+        navigate("/admin");
+      }
       navigate("/products-dashboard");
     } catch (err) {
       setError(err.message || "Login failed. Please try again.");
