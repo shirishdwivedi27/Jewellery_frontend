@@ -23,7 +23,9 @@ export default function ProductDetail() {
   if (!product) return <div className="error">Product not found</div>;
 
   return (
-    <div className="product-detail">
+    <div className="product-detail" style={{
+    "--bg-image": `url(${"https://static.vecteezy.com/system/resources/thumbnails/002/059/682/small/luxury-background-with-sparkles-glitters-dots-element-decoration-elegant-overlap-with-geometric-shape-and-golden-line-blank-space-illustration-graphic-design-vector.jpg"})`,
+  }}>
       <div className="detail-container">
         <div className="detail-image">
           <img 

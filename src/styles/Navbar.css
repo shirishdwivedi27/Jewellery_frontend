@@ -1,96 +1,136 @@
-/* Navbar Styling */
+/* =========================
+   NAVBAR BASE (ON HERO)
+========================= */
 .navbar {
-  background-color: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
-  padding: 15px 0;
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 100;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  height: 70px;
+  background: transparent;
+  z-index: 1000;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
 }
 
+/* =========================
+   NAVBAR ON SCROLL (BLUE)
+========================= */
+.navbar-scrolled {
+  background-color: #8b2e2e;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+/* =========================
+   CONTAINER
+========================= */
 .navbar-container {
   max-width: 1400px;
   margin: 0 auto;
+  padding: 0 80px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
 }
 
-/* Logo */
+/* =========================
+   LOGO
+========================= */
 .navbar-logo {
-  flex-shrink: 0;
+  cursor: pointer;
 }
 
 .logo-image {
-  max-height: 150px;
-  width: auto;
+  height: 40px;
 }
 
-/* Menu Items */
+/* =========================
+   MENU
+========================= */
 .navbar-menu {
-  display: flex;
   list-style: none;
+  display: flex;
+  gap: 34px;
   margin: 0;
   padding: 0;
-  gap: 30px;
   flex: 1;
   justify-content: center;
 }
 
+/* =========================
+   MENU LINKS
+========================= */
 .nav-link {
+  position: relative;
   text-decoration: none;
-  color: #0b1720;
-  font-size: 14px;
-  font-weight: 500;
-  transition: color 0.3s ease;
-  font-family: 'Playfair Display', serif;
+  color: #ffffff;
+  font-size: 13px;
+  letter-spacing: 1px;
+  padding-bottom: 6px;
+  transition: color 0.25s ease;
+  font-family: "Poppins", sans-serif;
+}
+
+/* gold underline */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: #d4af37;
+  transition: width 0.3s ease;
+}
+
+/* hover + active */
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
 }
 
 .nav-link:hover {
-  color: #8B2E2E;
+  color: #d4af37;
 }
 
-/* Right Icons */
+/* =========================
+   RIGHT ICONS
+========================= */
 .navbar-icons {
   display: flex;
-  gap: 20px;
   align-items: center;
+  gap: 18px;
 }
 
 .icon-btn {
   background: none;
   border: none;
-  font-size: 24px;
+  color: #ffffff;
+  font-size: 20px;
   cursor: pointer;
   position: relative;
-  padding: 5px;
-  transition: transform 0.2s;
 }
 
-.icon-btn:hover {
-  transform: scale(1.1);
-}
-
-/* Cart Badge */
+/* =========================
+   CART BADGE
+========================= */
 .cart-badge {
   position: absolute;
-  top: -8px;
-  right: -8px;
-  background-color: #8B2E2E;
-  color: white;
+  top: -6px;
+  right: -6px;
+  background-color: #d4af37;
+  color: #000;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  font-size: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  font-weight: bold;
 }
 
-/* Account Dropdown */
+/* =========================
+   ACCOUNT DROPDOWN
+========================= */
 .account-menu {
   position: relative;
 }
@@ -99,36 +139,32 @@
   position: absolute;
   top: 100%;
   right: 0;
-  background: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
+  margin-top: 12px;
+  min-width: 190px;
+  background: #ffffff;
+  border-radius: 6px;
   padding: 10px 0;
-  min-width: 180px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  margin-top: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 .dropdown-email {
   padding: 10px 15px;
-  margin: 0;
   font-size: 12px;
-  color: #666;
-  border-bottom: 1px solid #e0e0e0;
+  color: #555;
+  border-bottom: 1px solid #eee;
 }
 
 .dropdown-menu a {
   display: block;
   padding: 10px 15px;
-  text-decoration: none;
-  color: #0b1720;
   font-size: 14px;
-  transition: background-color 0.2s;
+  color: #0b1720;
+  text-decoration: none;
 }
 
 .dropdown-menu a:hover {
   background-color: #f5f5f5;
-  color: #8B2E2E;
+  color: #8b2e2e;
 }
 
 .logout-btn {
@@ -136,30 +172,16 @@
   padding: 10px 15px;
   background: none;
   border: none;
-  border-top: 1px solid #e0e0e0;
-  color: #8B2E2E;
-  font-weight: 600;
+  border-top: 1px solid #eee;
+  color: #8b2e2e;
   cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.2s;
 }
 
-.logout-btn:hover {
-  background-color: #f5f5f5;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
   .navbar-menu {
-    gap: 15px;
-    font-size: 12px;
-  }
-
-  .logo-image {
-    max-height: 45px;
-  }
-
-  .icon-btn {
-    font-size: 20px;
+    display: none;
   }
 }

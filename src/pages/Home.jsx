@@ -3,6 +3,9 @@ import { getProducts } from "../api/api";
 import ProductCard from "../components/ProductCard";
 import Footer from "../components/Footer";
 import "../styles/Home.css";
+import Hero from "../components/Hero";
+import IntroBanner from "../components/IntroBanner";
+import FeatureBanner from "../components/FeatureBanner";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -25,25 +28,12 @@ export default function Home() {
   if (loading) return <div className="loading">Loading...</div>;
 
   return (
-    <div className="home">
-      {/* Hero Section */}
-      <section className="hero">
-        <div 
-          className="hero-background"
-          style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=1200&h=600&fit=crop')"
-          }}
-        >
-          <div className="hero-overlay"></div>
-          <div className="hero-content">
-            <h1 className="hero-title">Where Style Meets Shine</h1>
-            <p className="hero-subtitle">Golden Echoes of Heritage</p>
-            <button className="hero-btn">Explore Collection</button>
-          </div>
-        </div>
-      </section>
+     <div className="home">
+      <Hero/>
+      <FeatureBanner/>
+      <IntroBanner/>
 
-      {/* Products Section */}
+      {/* Products Section*/}
       <section className="products-section">
         <div className="container">
           <h2 className="section-title">Featured Collection</h2>
@@ -77,36 +67,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trust Section */}
-      <section className="trust-section">
-        <div className="container">
-          <div className="trust-grid">
-            <div className="trust-card">
-              <div className="trust-icon">🚚</div>
-              <h3>Free Shipping</h3>
-              <p>Above 2lakhs cart value</p>
-            </div>
-            <div className="trust-card">
-              <div className="trust-icon">♻️</div>
-              <h3>30 Days Return</h3>
-              <p>Please review all the terms</p>
-            </div>
-            <div className="trust-card">
-              <div className="trust-icon">⭐</div>
-              <h3>100% Genuine</h3>
-              <p>We provide 92.5% Pure Silver</p>
-            </div>
-            <div className="trust-card">
-              <div className="trust-icon">🔒</div>
-              <h3>Secure Payment</h3>
-              <p>With Razorpay, your payment is secure</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Footer */}
-      <Footer />
+      {/* <Footer />  */}
     </div>
   );
 }
