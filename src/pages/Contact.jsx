@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { submitContact } from "../api/api";
-import Footer from "../components/Footer";
 import "../styles/Pages.css";
 
 export default function Contact() {
@@ -121,7 +120,7 @@ export default function Contact() {
         </div>
       </div>
 
-      <Footer />
+
     </div>
   );
 }

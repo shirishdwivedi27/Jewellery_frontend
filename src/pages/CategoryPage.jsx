@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProductsByCategory } from "../api/api";
 import ProductCard from "../components/ProductCard";
-import Footer from "../components/Footer";
+
 import "../styles/Pages.css";
 
 export default function CategoryPage() {
@@ -57,7 +57,7 @@ export default function CategoryPage() {
         <p className="no-products">No products found in this category</p>
       )}
 
-      <Footer />
+
     </div>
   );
 }

@@ -136,32 +136,43 @@
 //     </nav>
 //   );
 // }
+
 import { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../auth/AuthContext";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext";  
 import AuthModal from "./AuthModal";
 import "../styles/Navbar.css";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  
 
   const [cartCount] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  /* Scroll background effect */
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 80);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    if (location.pathname === "/") {
+      const handleScroll = () => setScrolled(window.scrollY > 80);
+      window.addEventListener("scroll", handleScroll);
+      handleScroll();
+      return () => window.removeEventListener("scroll", handleScroll);
+    } else {
+      setScrolled(true);
+    }
+  }, [location.pathname]);
+
 
   const handleLogout = () => {
     logout();
+    setIsDropdownOpen(false);
     navigate("/");
   };
-
   return (
     <>
       <nav className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
@@ -191,34 +202,68 @@ export default function Navbar() {
           <div className="navbar-icons">
 
             {/* ACCOUNT */}
-            {!user ? (
-              <button
-                className="icon-btn"
-                onClick={() => setShowAuthModal(true)}
-                title="Login / Register"
-              >
-                👤
-              </button>
-            ) : (
-              <button
-                className="icon-btn"
-                onClick={handleLogout}
-                title="Logout"
-              >
-                My Profile
-              </button>
-            )}
+            <div className="account-menu">
+                <button
+                  className="icon-btn"
+                  onClick={() => {
+                    if (user) {
+                      setIsDropdownOpen(!isDropdownOpen);
+                    } else {
+                      setShowAuthModal(true);
+                    }
+                  }}
+                >
+                  👤
+                </button>
+                  {isDropdownOpen && (
+  <div className="dropdown-menu">
+    {user ? (
+      <>
+        <NavLink
+          to="/profile"
+          onClick={() => setIsDropdownOpen(false)}
+        >
+          My Profile
+        </NavLink>
 
-            {/* CART */}
-            <button
-              className="icon-btn"
-              onClick={() => navigate("/cart")}
-            >
-              🛍️
-              {cartCount > 0 && (
-                <span className="cart-badge">{cartCount}</span>
-              )}
-            </button>
+        <NavLink
+          to="/cart"
+          onClick={() => setIsDropdownOpen(false)}
+        >
+          My Cart
+        </NavLink>
+
+        <NavLink
+          to="/orders"
+          onClick={() => setIsDropdownOpen(false)}
+        >
+          My Orders
+        </NavLink>
+
+        <button
+          className="logout-btn"
+          onClick={() => {
+            setIsDropdownOpen(false);
+            handleLogout();
+          }}
+        >
+          Logout
+        </button>
+      </>
+    ) : (
+      <button
+        className="dropdown-login-btn"
+        onClick={() => {
+          setIsDropdownOpen(false);
+          setShowAuthModal(true);
+        }}
+      >
+        Login / Register
+      </button>
+    )}
+  </div>
+)}
+            </div>
 
           </div>
         </div>

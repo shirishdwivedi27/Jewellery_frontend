@@ -3,7 +3,7 @@ import { useAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
 import "../styles/Auth.css";
 
-export default function Login() {
+export default function Login({onClose}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -17,11 +17,13 @@ export default function Login() {
     setLoading(true);
 
     try {
-      await login(email, password);
-      if(email === "admin123@gmail.com"){
+      const user = await login(email, password);
+   if (onClose) onClose();
+      if(user.role === "admin"){
         navigate("/admin");
       }
-      navigate("/products-dashboard");
+      else{
+      navigate("/");}
     } catch (err) {
       setError(err.message || "Login failed. Please try again.");
     } finally {

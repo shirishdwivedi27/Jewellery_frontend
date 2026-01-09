@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../api/api";
 import ProductCard from "../components/ProductCard";
-import Footer from "../components/Footer";
+
 import "../styles/Home.css";
 import Hero from "../components/Hero";
 import IntroBanner from "../components/IntroBanner";
@@ -68,8 +68,6 @@ export default function Home() {
       </section>
 
 
-      {/* Footer */}
-      {/* <Footer />  */}
     </div>
   );
 }

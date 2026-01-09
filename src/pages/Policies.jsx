@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router-dom";
-import Footer from "../components/Footer";
 import "../styles/Pages.css";
 
 export default function Policies() {
@@ -126,7 +125,7 @@ export default function Policies() {
         <div dangerouslySetInnerHTML={{ __html: policy.content }} />
       </div>
 
-      <Footer />
+
     </div>
   );
 }

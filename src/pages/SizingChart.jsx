@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Footer from "../components/Footer";
+
 import "../styles/Pages.css";
 
 export default function SizingChart() {
@@ -69,7 +69,7 @@ export default function SizingChart() {
         </table>
       </div>
 
-      <Footer />
+
     </div>
   );
 }

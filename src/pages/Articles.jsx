@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Footer from "../components/Footer";
+
 import "../styles/Pages.css";
 
 export default function Articles() {
@@ -47,7 +47,6 @@ export default function Articles() {
         ))}
       </div>
 
-      <Footer />
     </div>
   );
 }

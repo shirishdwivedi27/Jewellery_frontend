@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getProducts } from "../api/api";
 import ProductCard from "../components/ProductCard";
-import Footer from "../components/Footer";
+
 import "../styles/ProductList.css";
 
 export default function ProductList() {
@@ -27,7 +27,7 @@ export default function ProductList() {
   if (loading) return <div className="loading">Loading...</div>;
 
   return (
-    <div className="product-list-page">
+    <div className="product-list-page page-offset">
       <div className="container">
         <div className="breadcrumb">
           <button onClick={() => navigate("/")} className="breadcrumb-link">Home</button>
@@ -49,7 +49,7 @@ export default function ProductList() {
           <p className="no-products">No products available</p>
         )}
       </div>
-      <Footer />
+
     </div>
   );
 }

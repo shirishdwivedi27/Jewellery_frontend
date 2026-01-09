@@ -63,10 +63,10 @@ export default function AdminDashboard() {
 
   return (
     <div className="admin-container">
-      <header className="admin-header">
+      {/* <header className="admin-header">
         <h1>Hridika Jewels – Admin</h1>
         <button className="logout-btn">Logout</button>
-      </header>
+      </header> */}
 
       <div className="stats">
         <Stat title="Total Products" value={products.length} icon="📦" />

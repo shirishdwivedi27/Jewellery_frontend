@@ -18,7 +18,7 @@ export default function AuthModal({ onClose }) {
         {isLogin ? (
           <Login
             onRegisterClick={() => setIsLogin(false)}
-            onLoginSuccess={onClose}
+            onClose={onClose}
           />
         ) : (
           <Register

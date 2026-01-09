@@ -42,7 +42,7 @@ export default function Cart() {
   if (loading) return <div className="loading">Loading cart...</div>;
 
   return (
-    <div className="cart-page">
+    <div className="cart-page page-offset">
       <div className="cart-container">
         <h1>Your Cart</h1>
 

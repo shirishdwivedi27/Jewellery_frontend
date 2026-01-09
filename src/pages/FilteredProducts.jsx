@@ -122,7 +122,7 @@ export default function FilteredProducts() {
   }
 
   return (
-    <div className="filtered-products-page">
+    <div className="filtered-products-page page-offset">
       <div className="filtered-container">
         {/* Left Sidebar - Filters */}
         <aside className="filters-sidebar">
