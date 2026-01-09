@@ -7,7 +7,8 @@ export default function AdminDashboard() {
   const [orders, setOrders] = useState([]);
   const [products, setProducts] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("access_token");
+
 
   const [form, setForm] = useState({
     name: "",
@@ -22,10 +23,28 @@ export default function AdminDashboard() {
 
   const API_BASE = "http://localhost:5000";
 
+  // const fetchProducts = async () => {
+  //   const res = await fetch(`${API_BASE}/products`);   
+  //   const data = await res.json();
+  //   setProducts(data);
+  // };
+
   const fetchProducts = async () => {
-    const res = await fetch(`${API_BASE}/products`);   
-    const data = await res.json();
-    setProducts(data);
+  const res = await fetch(`${API_BASE}/products`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await res.json();
+  setProducts(data);
+};
+
+  const fetchCustomers = async () => {
+    const res = await fetch(`${API_BASE}/api/admin/users`, {
+      headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      setCustomers(data);
   };
 
   const fetchOrders = async () => {
@@ -36,11 +55,11 @@ export default function AdminDashboard() {
     setOrders(data);
   };
 
-  const fetchCustomers = async () => {
-    const res = await fetch(`${API_BASE}/api/admin/contacts`);
-    const data = await res.json();
-    setCustomers(data);
-  };
+  // const fetchCustomers = async () => {
+  //   const res = await fetch(`${API_BASE}/api/admin/contacts`);
+  //   const data = await res.json();
+  //   setCustomers(data);
+  // };
 
   const addProduct = async () => {
     await fetch(`${API_BASE}/products`, {
@@ -71,16 +90,18 @@ export default function AdminDashboard() {
 
       <div className="stats">
         <Stat title="Total Products" value={products.length} icon="📦" />
-        <Stat title="Total Orders" value="4" icon="🛒" />
-        <Stat title="Total Customers" value="4" icon="👥" />
+        <Stat title="Total Orders" value={orders.length} icon="🛒" />
+        <Stat title="Total Customers" value={customers.length} icon="👥" />
         <Stat title="Total Revenue" value="$2646" icon="💰" />
       </div>
 
       <div className="tabs">
-        <button className={activeTab === "products" ? "active" : ""} onClick={() => setActiveTab("products")}>Products</button>
-        <button className={activeTab === "customers" ? "active" : ""}>Customers</button>
-        <button className={activeTab === "orders" ? "active" : ""}>Orders</button>
-      </div>
+  <button className={activeTab === "products" ? "active" : ""} onClick={() => setActiveTab("products")}> Products </button>
+
+  <button className={activeTab === "customers" ? "active" : ""} onClick={() => setActiveTab("customers")}> Customers </button>
+
+  <button className={activeTab === "orders" ? "active" : ""} onClick={() => setActiveTab("orders")} > Orders </button> </div>
+
 
       {activeTab === "products" && (
         <div className="card">
@@ -136,13 +157,14 @@ export default function AdminDashboard() {
             </thead>
             <tbody>
               {orders.map((o) => (
-                <tr key={o.id}>
-                  <td>{o.id}</td>
-                  <td>{o.address}</td>
-                  <td>{o.status}</td>
-                  <td>{o.created_at}</td>
-                </tr>
-              ))}
+                   <tr key={o.id}>
+                     <td>{o.id}</td>
+                     <td>{o.user_id}</td>
+                     <td>{o.payment_method}</td>
+                     <td>{o.status}</td>
+                     <td>{new Date(o.created_at).toLocaleString()}</td>
+                   </tr>
+                 ))}
             </tbody>
           </table>
         </div>
@@ -154,21 +176,21 @@ export default function AdminDashboard() {
           <table>
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Status</th>
+                <th>Name</th> 
+                <th>Email</th> 
+                <th>Phone</th> 
+                <th>Status</th> 
               </tr>
             </thead>
             <tbody>
               {customers.map((c) => (
-                <tr key={c.id}>
-                  <td>{c.name}</td>
-                  <td>{c.email}</td>
-                  <td>{c.phone}</td>
-                  <td>{c.status}</td>
-                </tr>
-              ))}
+                  <tr key={c.user_id}>
+                    <td>{c.username}</td>
+                    <td>{c.email}</td>
+                    <td>{c.user_id}</td>
+                    <td>{new Date(c.created_at).toLocaleDateString()}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
@@ -193,13 +215,13 @@ export default function AdminDashboard() {
             </div>
 
             <Input label="Image URL" value={form.images} onChange={(v) => setForm({ ...form, images: v })} />
-<<<<<<< HEAD
+
             {/* <Input label="Price" value={form.price} onChange={(v) => setForm({ ...form, price: v })} />
             */}
            
-=======
+
             {/* <Input label="price" value={form.price} onChange={(v) => setForm({ ...form,price: v })}/> */}
->>>>>>> origin/shreya
+
             <div className="modal-actions">
               <button onClick={() => setShowModal(false)}>Cancel</button>
               <button className="primary-btn" onClick={addProduct}>Add Product</button>

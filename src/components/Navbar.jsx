@@ -58,8 +58,8 @@ export default function Navbar() {
                 {user ? (
                   <>
                     <p className="dropdown-email">{user.email}</p>
-                    <a href="/profile">My Profile</a>
-                    <a href="/orders">My Orders</a>
+                    <a onClick={() => navigate("/profile")}>My Profile</a>
+                    <a onClick={() => navigate("/orders")}>My Orders</a>
                     <button onClick={handleLogout} className="logout-btn">Logout</button>
                   </>
                 ) : (

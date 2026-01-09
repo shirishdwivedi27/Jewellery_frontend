@@ -6,15 +6,41 @@ export default function ProductCard({ product }) {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const handleAddToCart = (e) => {
-    e.stopPropagation();
-    if (!user) {
-      navigate("/login");
+ const handleAddToCart = async (e) => {
+  e.stopPropagation();
+
+  if (!user) {
+    navigate("/login");
+    return;
+  }
+
+  try {
+    const token = localStorage.getItem("access_token");
+
+    const res = await fetch("http://localhost:5000/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        product_id: product.id,
+        quantity: 1,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert("Product added to cart 🛒");
     } else {
-      // TODO: Add to cart logic
-      alert(`Added ${product.name} to cart`);
+      alert(data.msg || "Failed to add to cart");
     }
-  };
+  } catch (error) {
+    console.error("Add to cart error:", error);
+    alert("Something went wrong");
+  }
+};
 
   const handleProductClick = () => {
     navigate(`/products/${product.id}`);

@@ -16,6 +16,12 @@ import FloatingContact from "./components/FloatingContact";
 import AdminDashboard from "./auth/Admin";
 import ForgotPassword from "./auth/Forgetpassword";
 import ResetPassword from "./auth/Resetpassword";
+import ProtectedRoute from "./auth/ProtectedRoute";
+import Profile from "./pages/Profile";
+import BespokeCustomization from "./pages/BespokeCustomization";
+import About from "./pages/About";
+import Orders from "./pages/Orders";
+import OrderDetails from "./pages/OrderDetails";
 
 export default function App() {
   return (
@@ -33,7 +39,26 @@ export default function App() {
         <Route path="/reset-password" element={<ResetPassword/>} />
         {/* Footer Links - Articles */}
         <Route path="/articles" element={<Articles />} />
-        
+        <Route path="/profile"
+          element={
+              <ProtectedRoute>
+                  <Profile />
+              </ProtectedRoute>
+            }
+       />
+
+          <Route path="/bespoke" element={<BespokeCustomization />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/orders/:id" element={<OrderDetails />} />
+
+       <Route
+           path="/orders"
+           element={
+           
+               <Orders/>
+           
+           }
+          />
         {/* Footer Links - Categories */}
         <Route path="/category/:category" element={<CategoryPage />} />
         <Route path="/admin" element={<AdminDashboard/>} />

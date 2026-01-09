@@ -1,0 +1,81 @@
+.bespoke-page {
+  background: #fff;
+}
+
+/* Hero */
+.bespoke-hero {
+  background-image: url("https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3");
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  padding: 90px 20px;
+  color: #fff;
+}
+
+.bespoke-hero h1 {
+  font-size: 44px;
+  margin-bottom: 10px;
+}
+
+.bespoke-hero p {
+  font-size: 18px;
+}
+
+/* Steps */
+.bespoke-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  padding: 70px 10%;
+}
+
+.step-card {
+  background: #fafafa;
+  padding: 30px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.step-card:hover {
+  transform: translateY(-8px);
+}
+
+.step-card h3 {
+  color: #b8964c;
+  margin-bottom: 10px;
+}
+
+/* CTA */
+.bespoke-cta {
+  background: linear-gradient(to right, #b8964c, #e3c98a);
+  text-align: center;
+  padding: 70px 20px;
+  color: #fff;
+}
+
+.bespoke-cta button {
+  margin-top: 20px;
+  padding: 12px 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  background: #fff;
+  color: #b8964c;
+  font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .bespoke-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .bespoke-steps {
+    grid-template-columns: 1fr;
+  }
+}
