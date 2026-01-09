@@ -22,7 +22,7 @@ export default function AdminDashboard() {
   const API_BASE = "http://localhost:5000";
 
   const fetchProducts = async () => {
-    const res = await fetch(`${API_BASE}/products`);
+    const res = await fetch(`${API_BASE}/products`);   
     const data = await res.json();
     setProducts(data);
   };
@@ -192,7 +192,9 @@ export default function AdminDashboard() {
             </div>
 
             <Input label="Image URL" value={form.images} onChange={(v) => setForm({ ...form, images: v })} />
-
+            {/* <Input label="Price" value={form.price} onChange={(v) => setForm({ ...form, price: v })} />
+            */}
+           
             <div className="modal-actions">
               <button onClick={() => setShowModal(false)}>Cancel</button>
               <button className="primary-btn" onClick={addProduct}>Add Product</button>
