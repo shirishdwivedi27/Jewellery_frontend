@@ -17,6 +17,7 @@ export default function AdminDashboard() {
     quantity: "",
     metal_cat: "Gold",
     images: "",
+    price:"",
   });
 
   const API_BASE = "http://localhost:5000";
@@ -192,9 +193,13 @@ export default function AdminDashboard() {
             </div>
 
             <Input label="Image URL" value={form.images} onChange={(v) => setForm({ ...form, images: v })} />
+<<<<<<< HEAD
             {/* <Input label="Price" value={form.price} onChange={(v) => setForm({ ...form, price: v })} />
             */}
            
+=======
+            {/* <Input label="price" value={form.price} onChange={(v) => setForm({ ...form,price: v })}/> */}
+>>>>>>> origin/shreya
             <div className="modal-actions">
               <button onClick={() => setShowModal(false)}>Cancel</button>
               <button className="primary-btn" onClick={addProduct}>Add Product</button>

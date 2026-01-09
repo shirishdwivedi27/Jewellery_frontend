@@ -14,6 +14,8 @@ import Contact from "./pages/Contact";
 import Policies from "./pages/Policies";
 import FloatingContact from "./components/FloatingContact";
 import AdminDashboard from "./auth/Admin";
+import ForgotPassword from "./auth/Forgetpassword";
+import ResetPassword from "./auth/Resetpassword";
 
 export default function App() {
   return (
@@ -27,7 +29,8 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/products-dashboard" element={<FilteredProducts />} />
-        
+        <Route path="/forgot-password" element={<ForgotPassword/>} />
+        <Route path="/reset-password" element={<ResetPassword/>} />
         {/* Footer Links - Articles */}
         <Route path="/articles" element={<Articles />} />
         
