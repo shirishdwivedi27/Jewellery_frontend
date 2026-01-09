@@ -84,3 +84,40 @@
   .fc-panel { right: 10px; left: 10px; bottom: 90px }
   .fc-btn { right: 10px; }
 }
+
+/* .wa-wrapper {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 999999;
+}
+
+.wa-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background-color: #25D366;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.wa-btn:hover {
+  transform: scale(1.05);
+}
+
+.wa-icon {
+  font-size: 28px;
+  color: #fff;
+}
+
+@media (max-width: 480px) {
+  .wa-wrapper {
+    right: 15px;
+    bottom: 15px;
+  }
+} */

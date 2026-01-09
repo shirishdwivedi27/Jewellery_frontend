@@ -109,6 +109,7 @@ import AdminRoute from "./auth/AdminRoute";
 
 import FloatingContact from "./components/FloatingContact";
 import Footer from "./components/Footer";
+import Whatsapp from "./components/Whatsapp";
 
 export default function App() {
   return (
@@ -166,7 +167,9 @@ export default function App() {
         />
       </Routes>
       </div>
+      
       <FloatingContact />
+      <Whatsapp/>
       <Footer />
     </>
   );
