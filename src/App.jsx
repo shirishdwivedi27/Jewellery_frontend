@@ -23,11 +23,45 @@ import About from "./pages/About";
 import Orders from "./pages/Orders";
 import OrderDetails from "./pages/OrderDetails";
 import Whatsapp from "./components/Whatsapp";
+import AdminRoute from "./auth/AdminRoute";
+import { useEffect, useState } from "react";
+import { useAuth } from "./auth/AuthContext";
+import LoginPrompt from "./components/LoginPrompt";
+
 
 export default function App() {
+  const { user } = useAuth();
+  // const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+useEffect(() => {
+  if (user) return;
+
+  const timer = setTimeout(() => {
+    setShowLoginPrompt(true);
+  }, 9000);
+
+  return () => clearTimeout(timer);
+}, [user]);
+  // useEffect(() => {
+  //   if (user) return;
+
+  //   const alreadyShown = localStorage.getItem("login_prompt_shown");
+  //   if (alreadyShown) return;
+
+  //   const timer = setTimeout(() => {
+  //     setShowLoginPrompt(true);
+  //     localStorage.setItem("login_prompt_shown", "true");
+  //   }, 900); // 9 seconds
+
+  //   return () => clearTimeout(timer);
+  // }, [user]);
+
   return (
     <>
       <Navbar />
+      {showLoginPrompt && (
+        <LoginPrompt onClose={() => setShowLoginPrompt(false)} />
+      )}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<ProductList />} />
@@ -62,7 +96,9 @@ export default function App() {
           />
         {/* Footer Links - Categories */}
         <Route path="/category/:category" element={<CategoryPage />} />
-        <Route path="/admin" element={<AdminDashboard/>} />
+
+        <Route path="/admin" element={ <AdminRoute> <AdminDashboard/> </AdminRoute>  } />
+        
         {/* Footer Links - Info Pages */}
         <Route path="/sizing-chart" element={<SizingChart />} />
         <Route path="/contact" element={<Contact />} />
