@@ -22,6 +22,7 @@ import BespokeCustomization from "./pages/BespokeCustomization";
 import About from "./pages/About";
 import Orders from "./pages/Orders";
 import OrderDetails from "./pages/OrderDetails";
+import Whatsapp from "./components/Whatsapp";
 
 export default function App() {
   return (
@@ -67,6 +68,7 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/policy/:type" element={<Policies />} />
       </Routes>
+      <Whatsapp/>
       <FloatingContact />
     </>
   );
