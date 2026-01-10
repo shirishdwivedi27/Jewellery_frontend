@@ -1,0 +1,19 @@
+.admin-btn {
+  background: linear-gradient(135deg, #d4af37, #f5e08e);
+  color: #000;
+  border: none;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 20px;
+  cursor: pointer;
+
+  /* Floating feel */
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.35);
+  transition: all 0.3s ease;
+}
+
+.admin-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(212, 175, 55, 0.55);
+}

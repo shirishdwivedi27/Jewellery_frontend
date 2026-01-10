@@ -28,7 +28,7 @@ import AdminRoute from "./auth/AdminRoute";
 import { useEffect, useState } from "react";
 import { useAuth } from "./auth/AuthContext";
 import LoginPrompt from "./components/LoginPrompt";
-
+import AdminButton from "./components/AdminButton";
 
 
 export default function App() {
@@ -99,7 +99,7 @@ useEffect(() => {
         {/* Footer Links - Categories */}
         <Route path="/category/:category" element={<CategoryPage />} />
 
-        <Route path="/admin" element={ <AdminRoute> <AdminDashboard/> </AdminRoute>  } />
+        <Route path="/admin" element={ <AdminRoute> <AdminButton/><AdminDashboard/> </AdminRoute>  } />
         
         {/* Footer Links - Info Pages */}
         <Route path="/sizing-chart" element={<SizingChart />} />
