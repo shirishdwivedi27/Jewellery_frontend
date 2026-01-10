@@ -1,6 +1,7 @@
+
 import { useState } from "react";
-import { useAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 import "../styles/Auth.css";
 
 export default function Login() {
@@ -8,7 +9,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+
+  const { login, user } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -17,15 +19,16 @@ export default function Login() {
     setLoading(true);
 
     try {
-      await login(email, password);
-      if(email=="admin123@gmail.com")
-      {
-        navigate("/admin");
+      const loggedInUser = await login(email, password);
+
+      // ✅ ROLE / EMAIL BASED REDIRECT
+      if (loggedInUser?.email === "admin123@gmail.com") {
+        navigate("/admin", { replace: true });
+      } else {
+        navigate("/products-dashboard", { replace: true });
       }
-      else{
-      navigate("/products-dashboard");}
     } catch (err) {
-      setError(err.message || "Login failed. Please try again.");
+      setError(err.response?.data?.msg || "Login failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -63,9 +66,10 @@ export default function Login() {
               required
             />
           </div>
-           <div className="forgot-password-link">
-    <a href="/forgot-password">Forgot Password?</a>
-  </div>
+
+          <div className="forgot-password-link">
+            <a href="/forgot-password">Forgot Password?</a>
+          </div>
 
           <button type="submit" className="submit-btn" disabled={loading}>
             {loading ? "Logging in..." : "Login"}

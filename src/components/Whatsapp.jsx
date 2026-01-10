@@ -21,7 +21,13 @@ export default function Whatsapp() {
         aria-label="Chat on WhatsApp"
         title="Chat on WhatsApp"
       >
-        <span className="wa-icon">💬</span>
+       <span className="wa-icon">
+             <img 
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/960px-WhatsApp.svg.png" 
+                alt="WhatsApp" 
+                style={{ width: "24px", height: "24px" }}
+            />
+        </span>
       </button>
     </div>
   );

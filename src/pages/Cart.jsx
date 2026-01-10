@@ -11,6 +11,46 @@ export default function Cart() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const token = localStorage.getItem("access_token");
+
+  const handleCheckout = async () => {
+  const token = localStorage.getItem("access_token");
+
+  if (!token) {
+    navigate("/login");
+    return;
+  }
+
+  const address = prompt("Enter delivery address");
+  if (!address) {
+    alert("Address is required");
+    return;
+  }
+
+  const res = await fetch("http://localhost:5000/orders", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      address,
+      payment_method: "COD",
+    }),
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    alert(data.msg || "Order failed");
+    return;
+  }
+
+  alert("Order placed successfully!");
+  navigate("/orders");
+};
+
+
   useEffect(() => {
     if (!user) {
       navigate("/login");
@@ -51,7 +91,7 @@ export default function Cart() {
         {cartItems.length === 0 ? (
           <div className="empty-cart">
             <p>Your cart is empty</p>
-            <button onClick={() => navigate("/")} className="continue-btn">
+            <button onClick={() => navigate("/products-dashboard")} className="continue-btn">
               Continue Shopping
             </button>
           </div>
@@ -95,7 +135,10 @@ export default function Cart() {
                 <span>Total:</span>
                 <span>₹{totalPrice.toLocaleString()}</span>
               </div>
-              <button className="checkout-btn">Proceed to Checkout</button>
+            <button className="checkout-btn" onClick={handleCheckout}>
+  Proceed to Checkout
+</button>
+
               <button 
                 className="continue-btn"
                 onClick={() => navigate("/")}

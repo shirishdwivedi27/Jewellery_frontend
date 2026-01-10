@@ -10,7 +10,8 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+  //const token = localStorage.getItem("token");
+   const token = localStorage.getItem("access_token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -25,7 +26,9 @@ export const getProductsByCategory = (category) => api.get(`/products/category/$
 
 // ---- AUTH ----
 export const loginUser = (data) => api.post("/login", data);
+
 export const registerUser = (data) => api.post("/register", data);
+
 export const getProfile = () => api.get("/profile");
 
 // ---- CART ----
@@ -39,5 +42,7 @@ export const createOrder = (data) => api.post("/orders", data);
 
 // ---- CONTACT ----
 export const submitContact = (data) => api.post("/api/contact", data);
+
+
 
 export default api;
