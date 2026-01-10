@@ -16,6 +16,7 @@ import FloatingContact from "./components/FloatingContact";
 import AdminDashboard from "./auth/Admin";
 import ForgotPassword from "./auth/Forgetpassword";
 import ResetPassword from "./auth/Resetpassword";
+import Whatsapp from "./pages/Whatsapp";
 
 export default function App() {
   return (
@@ -43,6 +44,7 @@ export default function App() {
         <Route path="/policy/:type" element={<Policies />} />
       </Routes>
       <FloatingContact />
+      <Whatsapp/> 
     </>
   );
 }
