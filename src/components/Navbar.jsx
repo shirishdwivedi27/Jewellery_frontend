@@ -18,16 +18,15 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        {/* Logo */}
+        
         <div className="navbar-logo">
           <img 
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSOi0UJsHKRUY3HMcFmhxZRb66idJte1TeCQ&s" 
+            src="logohridika.png" 
             alt="Jewels Logo"
             className="logo-image"
           />
         </div>
 
-        {/* Menu Items */}
         <ul className="navbar-menu">
           <li><a href="/" className="nav-link">Home</a></li>
           <li><a href="/products" className="nav-link">All Products</a></li>
@@ -42,9 +41,7 @@ export default function Navbar() {
           <li><a href="/about" className="nav-link">About</a></li>
         </ul>
 
-        {/* Right Icons */}
         <div className="navbar-icons">
-          {/* Account */}
           <div className="account-menu">
             <button 
               className="icon-btn" 
@@ -53,6 +50,7 @@ export default function Navbar() {
             >
               👤
             </button>
+
             {isDropdownOpen && (
               <div className="dropdown-menu">
                 {user ? (
@@ -60,7 +58,9 @@ export default function Navbar() {
                     <p className="dropdown-email">{user.email}</p>
                     <a onClick={() => navigate("/profile")}>My Profile</a>
                     <a onClick={() => navigate("/orders")}>My Orders</a>
-                    <button onClick={handleLogout} className="logout-btn">Logout</button>
+                    <button onClick={handleLogout} className="logout-btn">
+                      Logout
+                    </button>
                   </>
                 ) : (
                   <>
@@ -72,7 +72,6 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Cart */}
           <div className="cart-icon">
             <button 
               className="icon-btn" 
@@ -80,7 +79,9 @@ export default function Navbar() {
               title="Cart"
             >
               🛍️
-              {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+              {cartCount > 0 && (
+                <span className="cart-badge">{cartCount}</span>
+              )}
             </button>
           </div>
         </div>
@@ -88,3 +89,4 @@ export default function Navbar() {
     </nav>
   );
 }
+

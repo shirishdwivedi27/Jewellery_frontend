@@ -8,7 +8,7 @@ export default function Footer() {
         {/* Left: Logo & About */}
         <div className="footer-section footer-logo-section">
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSOi0UJsHKRUY3HMcFmhxZRb66idJte1TeCQ&s"
+            src="logohridika.png"
             alt="Shirish Jewels"
             className="footer-logo"
           />
@@ -21,13 +21,13 @@ export default function Footer() {
           <ul>
             <li><Link to="/articles">Articles</Link></li>
             <li><Link to="/category/bangles">Bangles</Link></li>
-            <li><Link to="/category/bracelets">Bracelets</Link></li>
+            {/*<li><Link to="/category/bracelets">Bracelets</Link></li>*/}
             <li><Link to="/category/brooches">Brooches</Link></li>
-            <li><Link to="/category/buttons">Buttons</Link></li>
+            {/*<li><Link to="/category/buttons">Buttons</Link></li>*/}
             <li><Link to="/category/earrings">Earrings</Link></li>
-            <li><Link to="/category/mala">Mala</Link></li>
+            {/*<li><Link to="/category/mala">Mala</Link></li>*/}
             <li><Link to="/category/necklace">Necklace</Link></li>
-            <li><Link to="/category/pendant">Pendant</Link></li>
+            {/*<li><Link to="/category/pendant">Pendant</Link></li>*/}
             <li><Link to="/category/rings">Rings</Link></li>
           </ul>
         </div>
@@ -38,7 +38,7 @@ export default function Footer() {
           <ul>
             <li><Link to="/sizing-chart">Sizing Chart</Link></li>
             <li><Link to="/contact">Contact</Link></li>
-            <li><Link to="/account">My account</Link></li>
+            {/*<li><Link to="/account">My account</Link></li>*/}
             <li><Link to="/policy/return">Return & Exchange Policy</Link></li>
             <li><Link to="/policy/privacy">Privacy Policy</Link></li>
             <li><Link to="/policy/shipping">Shipping Policy</Link></li>

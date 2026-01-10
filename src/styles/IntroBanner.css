@@ -1,0 +1,150 @@
+
+/* ===============================
+   FULL SCREEN SECTION (REDUCED)
+   =============================== */
+.intro-hero {
+  width: 100vw;
+  height: 80vh;
+  position: relative;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* 🔴 initial hidden */
+  opacity: 0;
+  transform: scale(1.03);
+}
+
+/* reveal on scroll */
+.intro-hero.show {
+  animation: heroFadeIn 1.2s ease forwards;
+}
+
+@keyframes heroFadeIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===============================
+   FRAME
+   =============================== */
+.intro-frame {
+  width: 90%;
+  height: 80%;
+
+  border: 2px solid rgba(255, 255, 255, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+}
+
+.intro-hero.show .intro-frame {
+  animation: frameReveal 1.1s ease forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes frameReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ===============================
+   CONTENT
+   =============================== */
+.intro-content {
+  max-width: 900px;
+  text-align: center;
+  color: #fff;
+  padding: 20px;
+
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+.intro-content h1 {
+ margin:10px;
+}
+.intro-content p {
+  margin: 20px 0 30px 0;
+}
+.intro-hero.show .intro-content {
+  animation: contentFade 1s ease forwards;
+  animation-delay: 0.45s;
+}
+
+@keyframes contentFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===============================
+   BUTTON
+   =============================== */
+.intro-btn {
+  padding: 14px 38px;
+  font-size: 14px;
+  background: #ffffff;
+  color: #5a3246;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 1px;
+
+  transition: all 0.35s ease;
+}
+
+.intro-btn:hover {
+  background: #f4f4f4;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* ===============================
+   RESPONSIVE
+   =============================== */
+@media (max-width: 768px) {
+  .intro-hero {
+    height: 75vh;
+  }
+
+  .intro-frame {
+    width: 92%;
+    height: 85%;
+  }
+
+  .intro-content h1 {
+    font-size: 38px;
+  }
+}
+@media (max-width: 480px) {
+  .intro-hero {
+    height: 70vh;
+  }
+
+  .intro-frame {
+    width: 95%;
+    height: 90%;
+  }
+
+  .intro-content h1 {
+    font-size: 32px;
+  }
+
+  .intro-btn {
+    padding: 12px 30px;
+    font-size: 13px;
+  }
+}

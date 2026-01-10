@@ -106,7 +106,6 @@ useEffect(() => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/policy/:type" element={<Policies />} />
       </Routes>
-      <Whatsapp/>
       <FloatingContact />
       <Whatsapp/> 
     </>

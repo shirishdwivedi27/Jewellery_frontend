@@ -1,9 +1,13 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getProducts } from "../api/api";
 import ProductCard from "../components/ProductCard";
 import Footer from "../components/Footer";
 import "../styles/Home.css";
+import Hero from "../components/Hero";
+import IntroBanner from "../components/IntroBanner";
+import FeatureBanner from "../components/FeatureBanner";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -28,29 +32,12 @@ export default function Home() {
 
   return (
     <div className="home">
-      {/* Hero Carousel Section */}
-      <section className="hero-carousel-section">
-        <div className="hero-carousel-wrapper">
-          <div className="hero-carousel">
-            <div className="hero-carousel-item">
-              <img src="https://kadambarijewels.in/wp-content/uploads/2025/07/4-ba-scaled.jpg" alt="From Royal Roots" />
-            </div>
-            <div className="hero-carousel-item">
-              <img src="https://kadambarijewels.in/wp-content/uploads/2025/07/5-ba-scaled.jpg" alt="Timeless Tasteful Treasured" />
-            </div>
-            <div className="hero-carousel-item">
-              <img src="https://kadambarijewels.in/wp-content/uploads/2025/07/1-ba-scaled.jpg" alt="Where Style Meets Shine" />
-            </div>
-            {/* Duplicate for seamless loop */}
-            <div className="hero-carousel-item">
-              <img src="https://kadambarijewels.in/wp-content/uploads/2025/07/4-ba-scaled.jpg" alt="From Royal Roots" />
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <Hero/>
+      <FeatureBanner/>
+      <IntroBanner/>
+     
       {/* Products Section */}
-      <section className="products-section">
+     <section className="products-section">
         <div className="container">
           <h2 className="section-title">Featured Collection</h2>
           
@@ -77,7 +64,7 @@ export default function Home() {
       </section>
 
       {/* Most Popular Section */}
-      <section className="popular-section">
+     <section className="popular-section">
         <div className="container">
           <h2 className="section-title">Most Popular</h2>
           <div className="products-grid">
@@ -124,3 +111,4 @@ export default function Home() {
     </div>
   );
 }
+
