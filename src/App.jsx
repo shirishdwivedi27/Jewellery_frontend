@@ -67,10 +67,10 @@ useEffect(() => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<ProductList />} />
-        <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/products/:id" element={<ProtectedRoute> <ProductDetail /> </ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart" element={ <ProtectedRoute> <Cart /> </ProtectedRoute> } />
         <Route path="/products-dashboard" element={<FilteredProducts />} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/reset-password" element={<ResetPassword/>} />
@@ -91,15 +91,13 @@ useEffect(() => {
        <Route
            path="/orders"
            element={
-           
-               <Orders/>
-           
+           <ProtectedRoute> <Orders/> </ProtectedRoute>
            }
           />
         {/* Footer Links - Categories */}
         <Route path="/category/:category" element={<CategoryPage />} />
 
-        <Route path="/admin" element={ <AdminRoute> <AdminButton/><AdminDashboard/> </AdminRoute>  } />
+        <Route path="/admin" element={ <AdminRoute> <AdminDashboard/> </AdminRoute>  } />
         
         {/* Footer Links - Info Pages */}
         <Route path="/sizing-chart" element={<SizingChart />} />
@@ -108,6 +106,8 @@ useEffect(() => {
       </Routes>
       <FloatingContact />
       <Whatsapp/> 
+      {/* <AdminRoute> <AdminButton/> </AdminRoute> */}
+       <AdminButton/>
     </>
   );
 }

@@ -217,7 +217,14 @@ export default function Login({ isModal = false, onSuccess }) {
             >
               Login with Phone
             </button>
+            <p className="auth-footer">
+                   Don't have an account? <a href="/register">Register here</a>
+            </p>
+            <p className="auth-footer">
+            <a href="/forgot-password">Forgot_Password?</a>
+              </p>
           </form>
+          
         )}
       </div>
     </div>
