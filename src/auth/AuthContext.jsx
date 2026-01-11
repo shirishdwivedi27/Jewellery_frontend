@@ -51,19 +51,80 @@
 
 // export const useAuth = () => useContext(AuthContext);
 
+// import React, {
+//   createContext,
+//   useContext,
+//   useState,
+//   useEffect,
+// } from "react";
+// import { loginUser } from "../api/api";
+
+// const AuthContext = createContext();
+
+// export const AuthProvider = ({ children }) => {
+//   const [user, setUser] = useState(null);
+//   const [loading, setLoading] = useState(true); // ✅ REQUIRED
+
+//   // ✅ RESTORE SESSION ON PAGE REFRESH
+//   useEffect(() => {
+//     try {
+//       const token = localStorage.getItem("access_token");
+//       const storedUser = localStorage.getItem("user");
+
+//       if (token && storedUser) {
+//         setUser(JSON.parse(storedUser));
+//       }
+//     } catch (err) {
+//       console.error("Session restore failed", err);
+//     } finally {
+//       setLoading(false); // ✅ VERY IMPORTANT
+//     }
+//   }, []);
+
+//   const login = async (email, password) => {
+//     const res = await loginUser({ email, password });
+
+//     const { access_token, user } = res.data;
+
+//     localStorage.setItem("access_token", access_token);
+//     localStorage.setItem("user", JSON.stringify(user));
+
+//     setUser(user);
+//     return user;
+//   };
+
+//   const logout = () => {
+//     localStorage.removeItem("access_token");
+//     localStorage.removeItem("user");
+//     setUser(null);
+//   };
+
+//   // ✅ Prevent white screen
+//   if (loading) return null;
+
+//   return (
+//     <AuthContext.Provider value={{ user, login, logout }}>
+//       {children}
+//     </AuthContext.Provider>
+//   );
+// };
+
+// export const useAuth = () => useContext(AuthContext);
+
+
 import React, {
   createContext,
   useContext,
   useState,
   useEffect,
 } from "react";
-import { loginUser } from "../api/api";
+import { loginUser, registerUser } from "../api/api";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // ✅ REQUIRED
+  const [loading, setLoading] = useState(true);
 
   // ✅ RESTORE SESSION ON PAGE REFRESH
   useEffect(() => {
@@ -77,10 +138,11 @@ export const AuthProvider = ({ children }) => {
     } catch (err) {
       console.error("Session restore failed", err);
     } finally {
-      setLoading(false); // ✅ VERY IMPORTANT
+      setLoading(false);
     }
   }, []);
 
+  // ✅ LOGIN
   const login = async (email, password) => {
     const res = await loginUser({ email, password });
 
@@ -93,6 +155,25 @@ export const AuthProvider = ({ children }) => {
     return user;
   };
 
+  // ✅ REGISTER (SAME AS LOGIN)
+const register = async (username, email, password) => {
+  const res = await registerUser({
+    user_id: username,   // keep this as you want
+    username,
+    email,
+    password,
+  });
+
+  const { access_token, user } = res.data;
+
+  localStorage.setItem("access_token", access_token);
+  localStorage.setItem("user", JSON.stringify(user));
+
+  setUser(user);
+  return user;
+};
+
+  // ✅ LOGOUT
   const logout = () => {
     localStorage.removeItem("access_token");
     localStorage.removeItem("user");
@@ -103,7 +184,9 @@ export const AuthProvider = ({ children }) => {
   if (loading) return null;
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, login, register, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
