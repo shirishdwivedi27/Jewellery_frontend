@@ -196,7 +196,9 @@
 @media (max-width: 480px) {
   .auth-card {
     padding: 28px 24px;
+    overflow: visible;
   }
+ 
 
   .auth-title {
     font-size: 22px;
@@ -237,18 +239,30 @@
 .phone-input {
   display: flex;
   align-items: center;
+  
   border: 1px solid #d1d5db;
   border-radius: 8px;
   overflow: hidden;
 }
 
+/* .phone-input {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* 🔑 KEY FIX */
+*/
+
+
 .country-code {
-  padding: 12px 14px;
+  /* padding: 12px 14px; */
+  padding: 10px;
   background: #f3f4f6;
   font-weight: 600;
   color: #374151;
   border-right: 1px solid #d1d5db;
+  min-width: 48px;
+  text-align: center;
 }
+
 
 .phone-input input {
   flex: 1;
@@ -256,4 +270,36 @@
   border: none;
   outline: none;
   font-size: 14px;
+}
+
+.form-group input {
+  margin-bottom: 2px;
+}
+
+.auth-footer + .auth-footer {
+  margin-top: 10px;
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding-bottom: 32px;
+  }
+}
+
+
+/* Ensure footer is always visible */
+.auth-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Push footer down nicely */
+.auth-form {
+  margin-bottom: 12px;
+}
+
+/* Footer spacing fix */
+.auth-footer {
+  margin-top: 14px;
+  line-height: 1.4;
 }
