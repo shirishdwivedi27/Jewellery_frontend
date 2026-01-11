@@ -1,0 +1,328 @@
+* Home Page Styling */
+.home {
+  width: 100%;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Loading State */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  font-size: 18px;
+  color: #666;
+}
+
+/* Hero Section */
+.hero {
+  width: 100%;
+  height: 600px;
+  margin: 0;
+  overflow: hidden;
+}
+
+.hero-background {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(139, 46, 46, 0.5) 0%, rgba(0, 0, 0, 0.3) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+}
+
+.hero-title {
+  font-size: 64px;
+  font-family: 'Playfair Display', serif;
+  margin: 0 0 20px 0;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.hero-subtitle {
+  font-size: 28px;
+  font-family: 'Playfair Display', serif;
+  margin: 0 0 30px 0;
+  font-weight: 400;
+  letter-spacing: 1px;
+  opacity: 0.9;
+}
+
+.hero-btn {
+  background-color: #8B2E2E;
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: background-color 0.3s;
+}
+
+.hero-btn:hover {
+  background-color: #6b2323;
+}
+
+/* Hero Carousel Section */
+.hero-carousel-section {
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+  background: #1a1a1a;
+}
+
+.hero-carousel-wrapper {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-carousel {
+  display: flex;
+  height: 100%;
+  animation: carouselScroll 8s linear infinite;
+  will-change: transform;
+}
+
+@keyframes carouselScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.hero-carousel:hover {
+  animation-play-state: paused;
+}
+
+.hero-carousel-item {
+  min-width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background-color: #f5f5f5;
+}
+
+/* Products Section */
+.products-section {
+  padding: 80px 0;
+  background-color: #f9f9f9;
+}
+
+.section-title {
+  font-size: 42px;
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  margin: 0 0 50px 0;
+  color: #0b1720;
+  font-weight: 600;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+/* Scrollable Carousel for 9+ products */
+.products-carousel {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  padding: 20px 0;
+  margin-bottom: 40px;
+  max-height: 700px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  padding-right: 15px;
+}
+
+.products-carousel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.products-carousel::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.products-carousel::-webkit-scrollbar-thumb {
+  background: #8B2E2E;
+  border-radius: 10px;
+}
+
+.products-carousel::-webkit-scrollbar-thumb:hover {
+  background: #6b2323;
+}
+
+@media (min-width: 1024px) {
+  .products-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.no-products {
+  text-align: center;
+  color: #999;
+  font-size: 18px;
+  padding: 40px;
+}
+
+.error-message {
+  color: #d32f2f;
+  background: #ffebee;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+/* Most Popular Section */
+.popular-section {
+  padding: 80px 0;
+  background-color: white;
+}
+
+.explore-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.explore-all-btn {
+  background-color: #8B2E2E;
+  color: white;
+  border: none;
+  padding: 15px 50px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background-color 0.3s;
+}
+
+.explore-all-btn:hover {
+  background-color: #6b2323;
+}
+
+/* Trust Section */
+.trust-section {
+  padding: 80px 0;
+  background-color: #f9f9f9;
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+}
+
+@media (min-width: 1024px) {
+  .trust-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.trust-card {
+  text-align: center;
+}
+
+.trust-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.trust-card h3 {
+  font-size: 20px;
+  font-family: 'Playfair Display', serif;
+  margin: 0 0 10px 0;
+  color: #0b1720;
+  font-weight: 600;
+}
+
+.trust-card p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero {
+    height: 400px;
+  }
+
+  .hero-title {
+    font-size: 42px;
+  }
+
+  .hero-subtitle {
+    font-size: 20px;
+  }
+
+  .section-title {
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+
+  .products-section,
+  .popular-section,
+  .trust-section {
+    padding: 40px 0;
+  }
+
+  .trust-grid {
+    gap: 30px;
+  }
+}
