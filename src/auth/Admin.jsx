@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../styles/admin.css";
+import "../styles/Admin.css";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("products");
