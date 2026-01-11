@@ -48,7 +48,7 @@ export default function AdminDashboard() {
   };
 
   const fetchOrders = async () => {
-    const res = await fetch(`${API_BASE}/orders`, {
+    const res = await fetch(`${API_BASE}/api/admin/orders`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -187,7 +187,7 @@ export default function AdminDashboard() {
                   <tr key={c.user_id}>
                     <td>{c.username}</td>
                     <td>{c.email}</td>
-                    <td>{c.user_id}</td>
+                    <td>{c.phone}</td>
                     <td>{new Date(c.created_at).toLocaleDateString()}</td>
                   </tr>
                 ))}
