@@ -48,7 +48,7 @@ export default function AdminDashboard() {
   };
 
   const fetchOrders = async () => {
-    const res = await fetch(`${API_BASE}/orders`, {
+    const res = await fetch(`${API_BASE}/api/admin/orders`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -152,6 +152,7 @@ export default function AdminDashboard() {
                 <th>Order ID</th>
                 <th>Address</th>
                 <th>Status</th>
+                <th>Payment_Method</th>
                 <th>Date</th>
               </tr>
             </thead>
@@ -159,9 +160,9 @@ export default function AdminDashboard() {
               {orders.map((o) => (
                    <tr key={o.id}>
                      <td>{o.id}</td>
-                     <td>{o.user_id}</td>
-                     <td>{o.payment_method}</td>
+                     <td>{o.address}</td>
                      <td>{o.status}</td>
+                     <td>{o.payment_method}</td>
                      <td>{new Date(o.created_at).toLocaleString()}</td>
                    </tr>
                  ))}
@@ -187,7 +188,7 @@ export default function AdminDashboard() {
                   <tr key={c.user_id}>
                     <td>{c.username}</td>
                     <td>{c.email}</td>
-                    <td>{c.user_id}</td>
+                    <td>{c.Phone}</td>
                     <td>{new Date(c.created_at).toLocaleDateString()}</td>
                   </tr>
                 ))}

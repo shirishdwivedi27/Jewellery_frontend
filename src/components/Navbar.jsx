@@ -40,7 +40,7 @@ export default function Navbar() {
           <li><a href="/articles" className="nav-link">Articles</a></li>
           <li><a href="/bespoke" className="nav-link">Bespoke Customisation</a></li>
           <li><a href="/about" className="nav-link">About</a></li>
-         <AdminRoute> <li className="admin-btn-wrapper"><a href="/admin" className=""> Admin </a></li> </AdminRoute>
+        
         </ul>
 
         <div className="navbar-icons">
