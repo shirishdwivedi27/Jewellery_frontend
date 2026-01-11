@@ -14,27 +14,35 @@ export default function Register() {
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
-    e.preventDefault();
-    setError("");
-    if (password !== confirm) {
-      setError("Passwords do not match");
-      return;
+  e.preventDefault();
+  setError("");
+
+  if (password !== confirm) {
+    setError("Passwords do not match");
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    const user = await register(username, email, password);
+
+    if (user.role === "admin") {
+      navigate("/admin");
+    } else {
+      navigate("/products-dashboard");
     }
-    setLoading(true);
-    try {
-      await register(username, email, password);
-      if(email=="admin123@gmail.com")
-      {
-        navigate("/admin");
-      }
-      else{
-      navigate("/products-dashboard");}
-    } catch (err) {
-      setError(err.response?.data?.message || err.message || "Registration failed");
-    } finally {
-      setLoading(false);
-    }
-  };
+  } catch (err) {
+    setError(
+      err.response?.data?.message ||
+      err.message ||
+      "Registration failed"
+    );
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="auth-container">
