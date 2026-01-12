@@ -62,7 +62,7 @@ export default function Contact() {
           </div>
           <div className="info-item">
             <h3>✉️ Email</h3>
-            <p><a href="mailto:info@shirish.divedi951@gmail.com">info@shirish.divedi951@gmail.com</a></p>
+            <p><a href="mailto:info@shirishdivedi951@gmail.com">info@shirish.divedi951@gmail.com</a></p>
           </div>
           <div className="info-item">
             <h3>🕐 Business Hours</h3>

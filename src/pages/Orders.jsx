@@ -85,7 +85,7 @@ export default function Orders() {
       return;
     }
 
-    fetch("http://localhost:5000/orders", {
+    fetch("https://flask-api-s.onrender.com/orders", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

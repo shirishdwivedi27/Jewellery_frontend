@@ -54,7 +54,7 @@ export default function Footer() {
             <p>Somajiguda, Hyderabad, Telangana 500082</p>
           </address>
           <p><strong>Phone:</strong> <a href="tel:+919398072103">+91-93980 72103</a></p>
-          <p><strong>Email:</strong> <a href="mailto:info@shirish.divedi951@gmail.com">info@shirish.divedi951@gmail.com</a></p>
+          <p><strong>Email:</strong> <a href="mailto:info@shirish.divedi951@gmail.com">info@shirishdivedi951@gmail.com</a></p>
           <div className="social-links">
             <a href="https://facebook.com/shirishjewels" target="_blank" rel="noopener noreferrer" title="Facebook">f</a>
             <a href="https://instagram.com/shirishjewels" target="_blank" rel="noopener noreferrer" title="Instagram">📷</a>
@@ -63,7 +63,7 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; 2026 Shirish Jewels. All rights reserved.</p>
+        <p>&copy; 2026 Hridika_Jewels ,INC All rights reserved.</p>
       </div>
     </footer>
   );
