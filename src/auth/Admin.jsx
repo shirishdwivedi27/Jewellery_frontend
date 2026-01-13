@@ -206,7 +206,7 @@ export default function AdminDashboard() {
             <Input label="Description" value={form.description} onChange={(v) => setForm({ ...form, description: v })} />
 
             <div className="row">
-              <Select label="Category" value={form.category} onChange={(v) => setForm({ ...form, category: v })} />
+              <Select label="Category" value={["Bangles","Rings","Bracelet","Neckalce"]} onChange={(v) => setForm({ ...form, category: v })} />
               <Select label="Metal" options={["Gold", "Silver"]} value={form.metal_cat} onChange={(v) => setForm({ ...form, metal_cat: v })} />
             </div>
 
@@ -221,7 +221,7 @@ export default function AdminDashboard() {
             */}
            
 
-            {/* <Input label="price" value={form.price} onChange={(v) => setForm({ ...form,price: v })}/> */}
+            <Input label="Price" value={form.price} onChange={(v) => setForm({ ...form,price: v })}/>
 
             <div className="modal-actions">
               <button onClick={() => setShowModal(false)}>Cancel</button>
