@@ -21,7 +21,7 @@ export default function AdminDashboard() {
     price:"",
   });
 
-  const API_BASE = "https://flask-api-s.onrender.com/";   //http://localhost:5000";
+  const API_BASE = "https://flask-api-s.onrender.com";   //http://localhost:5000";
 
   // const fetchProducts = async () => {
   //   const res = await fetch(`${API_BASE}/products`);   
