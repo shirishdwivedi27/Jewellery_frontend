@@ -1,0 +1,245 @@
+/* Filtered Products Page */
+.filtered-products-page {
+  min-height: calc(100vh - 200px);
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+}
+
+.filtered-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+}
+
+/* Left Sidebar - Filters */
+.filters-sidebar {
+  background: white;
+  padding: 25px;
+  border-radius: 4px;
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.filters-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0b1720;
+  margin-bottom: 25px;
+  font-family: 'Playfair Display', serif;
+}
+
+.filter-section {
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #eee;
+}
+
+.filter-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.filter-heading {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0b1720;
+  margin-bottom: 12px;
+  text-transform: capitalize;
+  letter-spacing: 0.3px;
+}
+
+.filter-options,
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 10px;
+  padding: 6px 0;
+  transition: color 0.2s ease;
+}
+
+.filter-item:hover {
+  color: #8B2E2E;
+}
+
+.filter-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #8B2E2E;
+  flex-shrink: 0;
+}
+
+.filter-item span {
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+.filter-item input[type="checkbox"]:checked ~ span {
+  color: #0b1720;
+  font-weight: 600;
+}
+
+/* Right Side - Products */
+.products-content {
+  padding: 0;
+}
+
+.products-header {
+  margin-bottom: 35px;
+}
+
+.products-header h2 {
+  font-size: 32px;
+  font-weight: 600;
+  color: #0b1720;
+  margin-bottom: 8px;
+  font-family: 'Playfair Display', serif;
+}
+
+.product-count {
+  font-size: 14px;
+  color: #999;
+  font-weight: 400;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+@media (min-width: 1024px) {
+  .products-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* No Products */
+.no-products {
+  text-align: center;
+  padding: 80px 40px;
+  background: white;
+  border-radius: 4px;
+}
+
+.no-products p {
+  font-size: 16px;
+  color: #999;
+}
+
+/* Scrollbar Styling for Filter Sidebar */
+.filters-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.filters-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.filters-sidebar::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 3px;
+}
+
+.filters-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #bbb;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .filtered-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .filters-sidebar {
+    position: static;
+    max-height: none;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px;
+  }
+
+  .products-header h2 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .filtered-products-page {
+    padding: 20px 10px;
+  }
+
+  .filtered-container {
+    gap: 15px;
+  }
+
+  .products-header h2 {
+    font-size: 20px;
+  }
+
+  .products-header {
+    margin-bottom: 20px;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .filters-sidebar {
+    padding: 15px;
+  }
+
+  .filter-heading {
+    font-size: 13px;
+  }
+
+  .filter-item span {
+    font-size: 12px;
+  }
+}
+
+/* Loading and Error States */
+.loading,
+.error-message {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #666;
+}
+
+.error-message {
+  color: #d32f2f;
+}
