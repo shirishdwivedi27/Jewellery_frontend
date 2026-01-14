@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import "../styles/Navbar.css";
-import AdminRoute from "../auth/AdminRoute";
+// import AdminRoute from "../auth/AdminRoute";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -40,7 +40,9 @@ export default function Navbar() {
           <li><a href="/articles" className="nav-link">Articles</a></li>
           <li><a href="/bespoke" className="nav-link">Bespoke Customisation</a></li>
           <li><a href="/about" className="nav-link">About</a></li>
-        
+
+         {/* <AdminRoute> <li className="admin-btn-wrapper"><a href="/admin" className=""> Admin </a></li> </AdminRoute> */}
+
         </ul>
 
         <div className="navbar-icons">

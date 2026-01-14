@@ -5,14 +5,17 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer-container">
-        {/* Left: Logo & About */}
+
+        {/* Logo */}
         <div className="footer-section footer-logo-section">
           <img
             src="logohridika.png"
-            alt="Shirish Jewels"
+            alt="Hridika Jewels"
             className="footer-logo"
           />
-          <p className="footer-tagline">Where ancient art meets modern elegance</p>
+          <p className="footer-tagline">
+            Where ancient art meets modern elegance
+          </p>
         </div>
 
         {/* Quick Links */}
@@ -21,13 +24,8 @@ export default function Footer() {
           <ul>
             <li><Link to="/articles">Articles</Link></li>
             <li><Link to="/category/bangles">Bangles</Link></li>
-            {/*<li><Link to="/category/bracelets">Bracelets</Link></li>*/}
             <li><Link to="/category/brooches">Brooches</Link></li>
-            {/*<li><Link to="/category/buttons">Buttons</Link></li>*/}
-            <li><Link to="/category/earrings">Earrings</Link></li>
-            {/*<li><Link to="/category/mala">Mala</Link></li>*/}
             <li><Link to="/category/necklace">Necklace</Link></li>
-            {/*<li><Link to="/category/pendant">Pendant</Link></li>*/}
             <li><Link to="/category/rings">Rings</Link></li>
           </ul>
         </div>
@@ -38,32 +36,46 @@ export default function Footer() {
           <ul>
             <li><Link to="/sizing-chart">Sizing Chart</Link></li>
             <li><Link to="/contact">Contact</Link></li>
-            {/*<li><Link to="/account">My account</Link></li>*/}
-            <li><Link to="/policy/return">Return & Exchange Policy</Link></li>
             <li><Link to="/policy/privacy">Privacy Policy</Link></li>
             <li><Link to="/policy/shipping">Shipping Policy</Link></li>
-            <li><Link to="/policy/terms">Terms & Condition</Link></li>
+            <li><Link to="/policy/terms">Terms & Conditions</Link></li>
           </ul>
         </div>
 
-        {/* Quick Connect */}
+        {/* Contact */}
         <div className="footer-section">
           <h4>Quick Connect</h4>
+
           <address>
-            <p>Greenland Apartment, 108, first floor, babukhan mall,</p>
-            <p>Somajiguda, Hyderabad, Telangana 500082</p>
+            <p>Greenland Apartment, 108, First Floor</p>
+            <p>Babukhan Mall, Somajiguda</p>
+            <p>Hyderabad, Telangana – 500082</p>
           </address>
+
           <p><strong>Phone:</strong> <a href="tel:+919398072103">+91-93980 72103</a></p>
           <p><strong>Email:</strong> <a href="mailto:info@shirish.divedi951@gmail.com">info@shirishdivedi951@gmail.com</a></p>
+
+          {/* Social Icons (TEXT BASED) */}
+
           <div className="social-links">
-            <a href="https://facebook.com/shirishjewels" target="_blank" rel="noopener noreferrer" title="Facebook">f</a>
-            <a href="https://instagram.com/shirishjewels" target="_blank" rel="noopener noreferrer" title="Instagram">📷</a>
+            <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook">
+              f
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram">
+              ig
+            </a>
+            <a href="https://wa.me/919398072103" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+              wa
+            </a>
           </div>
         </div>
+
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; 2026 Hridika_Jewels ,INC All rights reserved.</p>
+
+        <p>&copy;© 2026 Hridika_Jewels ,INC All rights reserved.</p>
+
       </div>
     </footer>
   );

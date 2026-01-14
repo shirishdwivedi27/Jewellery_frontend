@@ -11,6 +11,8 @@ export default function AdminDashboard() {
   const [editProductId, setEditProductId] = useState(null);
 
   const token = localStorage.getItem("access_token");
+  const [imageFile, setImageFile] = useState(null);
+
 
 
   const [form, setForm] = useState({
@@ -24,7 +26,9 @@ export default function AdminDashboard() {
     price:"",
   });
 
-  const API_BASE = "http://localhost:5000";  //"https://flask-api-s.onrender.com";   
+
+  const API_BASE = "https://flask-api-s.onrender.com";  //  "http://localhost:5000";
+
 
   // const fetchProducts = async () => {
   //   const res = await fetch(`${API_BASE}/products`);   
@@ -97,8 +101,22 @@ export default function AdminDashboard() {
   //   const data = await res.json();
   //   setCustomers(data);
   // };
+  const handleImageSelect = (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    setForm({ ...form, images: reader.result }); // ✅ base64 URL
+  };
+  reader.readAsDataURL(file);
+};
+
 
   const addProduct = async () => {
+     console.log("FORM DATA:", form);       // ✅ yahan
+     console.log("IMAGE:", form.images); 
+    
     await fetch(`${API_BASE}/products`, {
       method: "POST",
       headers: {
@@ -184,7 +202,7 @@ export default function AdminDashboard() {
               {products.map((p) => (
                 <tr key={p.id}>
                   <td className="product-cell">
-                    <img src={p.images} />
+                    <img src={p.images} alt={p.name} style={{ width: 50, height: 50, objectFit: "cover" }} />
                     <div>
                       <b>{p.name}</b>
                       <p>{p.description}</p>
@@ -258,7 +276,7 @@ export default function AdminDashboard() {
                   <tr key={c.user_id}>
                     <td>{c.username}</td>
                     <td>{c.email}</td>
-                    <td>{c.Phone}</td>
+                    <td>{c.phone}</td>
                     <td>{new Date(c.created_at).toLocaleDateString()}</td>
                   </tr>
                 ))}
@@ -286,10 +304,17 @@ export default function AdminDashboard() {
               <Input label="Quantity" value={form.quantity} onChange={(v) => setForm({ ...form, quantity: v })} />
             </div>
 
-            <Input label="Image URL" value={form.images} onChange={(v) => setForm({ ...form, images: v })} />
+           {/* <Input label="Image URL" value={form.images} onChange={(v) => setForm({ ...form, images: v })} />*/}
+           <label>Product Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageSelect} // <-- converts image to base64 and sets form.images
+          />
 
-            {/* <Input label="Price" value={form.price} onChange={(v) => setForm({ ...form, price: v })} />
-            */}
+
+            <Input label="Price" value={form.price} onChange={(v) => setForm({ ...form, price: v })} />
+            
            
 
             <Input label="Price" value={form.price} onChange={(v) => setForm({ ...form,price: v })}/>
@@ -331,7 +356,7 @@ const Input = ({ label, value, onChange }) => (
   </div>
 );
 
-const Select = ({ label, value, onChange, options = ["Rings", "Earrings", "Bracelets", "Necklaces"] }) => (
+const Select = ({ label, value, onChange, options = ["Bangles","Rings", "Earrings", "Bracelets", "Necklaces"] }) => (
   <div className="field">
     <label>{label}</label>
     <select value={value} onChange={(e) => onChange(e.target.value)}>

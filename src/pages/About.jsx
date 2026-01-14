@@ -5,7 +5,7 @@ export default function About() {
     <div className="about-page">
       {/* Hero Section */}
       <section className="about-hero">
-        <h1>About Shirish Jewels</h1>
+        <h1>About Hridika Jewels</h1>
         <p>Timeless Elegance. Crafted With Love.</p>
       </section>
 
@@ -14,7 +14,7 @@ export default function About() {
         <div className="about-text">
           <h2>Our Story</h2>
           <p>
-            Shirish Jewels was founded with a passion for creating jewellery
+            Hridika Jewels was founded with a passion for creating jewellery
             that celebrates elegance, beauty, and individuality.
             Each piece tells a story of craftsmanship and trust.
           </p>

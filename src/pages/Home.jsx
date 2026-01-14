@@ -79,7 +79,7 @@ export default function Home() {
       </section>
 
       {/* Trust Section */}
-      <section className="trust-section">
+      {/* <section className="trust-section">
         <div className="container">
           <div className="trust-grid">
             <div className="trust-card">
@@ -104,7 +104,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Footer */}
       <Footer />
