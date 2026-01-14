@@ -17,7 +17,7 @@ export default function ProductCard({ product }) {
   try {
     const token = localStorage.getItem("access_token");
 
-    const res = await fetch("http://localhost:5000/cart", {
+    const res = await fetch("https://flask-api-s.onrender.com/cart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

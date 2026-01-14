@@ -7,7 +7,12 @@ export default function AdminDashboard() {
   const [orders, setOrders] = useState([]);
   const [products, setProducts] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editProductId, setEditProductId] = useState(null);
+
   const token = localStorage.getItem("access_token");
+  const [imageFile, setImageFile] = useState(null);
+
 
 
   const [form, setForm] = useState({
@@ -21,13 +26,49 @@ export default function AdminDashboard() {
     price:"",
   });
 
-  const API_BASE = "http://localhost:5000";
+
+  const API_BASE = "https://flask-api-s.onrender.com";  //  "http://localhost:5000";
+
 
   // const fetchProducts = async () => {
   //   const res = await fetch(`${API_BASE}/products`);   
   //   const data = await res.json();
   //   setProducts(data);
   // };
+
+  const openEditModal = (product) => {
+  setIsEditMode(true);
+  setEditProductId(product.id);
+
+  setForm({
+    name: product.name,
+    category: product.category,
+    description: product.description,
+    stock: product.stock,
+    quantity: product.quantity,
+    metal_cat: product.metal_cat,
+    images: product.images,
+    price: product.price,
+  });
+
+  setShowModal(true);
+};
+
+  const updateProduct = async () => {
+  await fetch(`${API_BASE}/products/${editProductId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(form),
+  });
+
+  setShowModal(false);
+  setIsEditMode(false);
+  setEditProductId(null);
+  fetchProducts();
+};
 
   const fetchProducts = async () => {
   const res = await fetch(`${API_BASE}/products`, {
@@ -60,8 +101,22 @@ export default function AdminDashboard() {
   //   const data = await res.json();
   //   setCustomers(data);
   // };
+  const handleImageSelect = (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    setForm({ ...form, images: reader.result }); // ✅ base64 URL
+  };
+  reader.readAsDataURL(file);
+};
+
 
   const addProduct = async () => {
+     console.log("FORM DATA:", form);       // ✅ yahan
+     console.log("IMAGE:", form.images); 
+    
     await fetch(`${API_BASE}/products`, {
       method: "POST",
       headers: {
@@ -107,7 +162,29 @@ export default function AdminDashboard() {
         <div className="card">
           <div className="card-header">
             <h2>Manage Products</h2>
-            <button className="primary-btn" onClick={() => setShowModal(true)}>+ Add Product</button>
+            {/* <button className="primary-btn" onClick={() => setShowModal(true)}>+ Add Product</button> */}
+            <button
+                  className="primary-btn"
+                    onClick={() => {
+                      setIsEditMode(false);
+                      setEditProductId(null);
+                      setForm({
+                        name: "",
+                        category: "Rings",
+                        description: "",
+                        stock: "",
+                        quantity: "",
+                        metal_cat: "Gold",
+                        images: "",
+                        price: "",
+                      });
+                      setShowModal(true);
+                    }}
+                  >
+                    + Add Product
+                  </button>
+
+
           </div>
 
           <table>
@@ -118,13 +195,14 @@ export default function AdminDashboard() {
                 <th>Price</th>
                 <th>Stock</th>
                 <th>Quantity</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {products.map((p) => (
                 <tr key={p.id}>
                   <td className="product-cell">
-                    <img src={p.images} />
+                    <img src={p.images} alt={p.name} style={{ width: 50, height: 50, objectFit: "cover" }} />
                     <div>
                       <b>{p.name}</b>
                       <p>{p.description}</p>
@@ -136,6 +214,16 @@ export default function AdminDashboard() {
                     <span className={p.stock < 10 ? "stock low" : "stock ok"}>{p.stock}</span>
                   </td>
                   <td>{p.quantity}</td>
+                  
+                  <td className="actions">
+                      <button
+                        className="edit-btn"
+                        onClick={() => openEditModal(p)}
+                      >
+                        ✏️
+                      </button>
+                    </td>
+
                 </tr>
               ))}
             </tbody>
@@ -188,7 +276,7 @@ export default function AdminDashboard() {
                   <tr key={c.user_id}>
                     <td>{c.username}</td>
                     <td>{c.email}</td>
-                    <td>{c.Phone}</td>
+                    <td>{c.phone}</td>
                     <td>{new Date(c.created_at).toLocaleDateString()}</td>
                   </tr>
                 ))}
@@ -200,7 +288,8 @@ export default function AdminDashboard() {
       {showModal && (
         <div className="modal-backdrop">
           <div className="modal">
-            <h3>Add New Product</h3>
+            <h3>{isEditMode ? "Edit Product" : "Add New Product"}</h3>
+
 
             <Input label="Product Name" value={form.name} onChange={(v) => setForm({ ...form, name: v })} />
             <Input label="Description" value={form.description} onChange={(v) => setForm({ ...form, description: v })} />
@@ -215,17 +304,33 @@ export default function AdminDashboard() {
               <Input label="Quantity" value={form.quantity} onChange={(v) => setForm({ ...form, quantity: v })} />
             </div>
 
-            <Input label="Image URL" value={form.images} onChange={(v) => setForm({ ...form, images: v })} />
+           {/* <Input label="Image URL" value={form.images} onChange={(v) => setForm({ ...form, images: v })} />*/}
+           <label>Product Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageSelect} // <-- converts image to base64 and sets form.images
+          />
 
-            {/* <Input label="Price" value={form.price} onChange={(v) => setForm({ ...form, price: v })} />
-            */}
+
+            <Input label="Price" value={form.price} onChange={(v) => setForm({ ...form, price: v })} />
+            
            
 
-            {/* <Input label="price" value={form.price} onChange={(v) => setForm({ ...form,price: v })}/> */}
+            <Input label="Price" value={form.price} onChange={(v) => setForm({ ...form,price: v })}/>
 
             <div className="modal-actions">
               <button onClick={() => setShowModal(false)}>Cancel</button>
-              <button className="primary-btn" onClick={addProduct}>Add Product</button>
+             {isEditMode ? (
+                  <button className="primary-btn" onClick={updateProduct}>
+                    Update Product
+                  </button>
+                ) : (
+                  <button className="primary-btn" onClick={addProduct}>
+                    Add Product
+                  </button>
+                )}
+
             </div>
           </div>
         </div>
@@ -251,7 +356,7 @@ const Input = ({ label, value, onChange }) => (
   </div>
 );
 
-const Select = ({ label, value, onChange, options = ["Rings", "Earrings", "Bracelets", "Necklaces"] }) => (
+const Select = ({ label, value, onChange, options = ["Bangles","Rings", "Earrings", "Bracelets", "Necklaces"] }) => (
   <div className="field">
     <label>{label}</label>
     <select value={value} onChange={(e) => onChange(e.target.value)}>

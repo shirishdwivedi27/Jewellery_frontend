@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import "../styles/Whatsapp.css";
 
 export default function Whatsapp() {
-  const WHATSAPP_NUMBER = "919151006579";
+  const WHATSAPP_NUMBER = "918081892520";
   const MESSAGE = "Hello, I want to know about your jewellery .";
 
   const openWhatsApp = () => {

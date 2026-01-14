@@ -289,3 +289,27 @@ th, td {
   font-size: 28px;
   color: #c89b3c;
 }
+
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn {
+  background: #e7f0ff;
+  color: #2563eb;
+  border: none;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background: #ffe7e7;
+  color: #dc2626;
+  border: none;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
