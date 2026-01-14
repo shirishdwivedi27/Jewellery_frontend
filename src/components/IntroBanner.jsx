@@ -42,13 +42,14 @@ export default function IntroBanner() {
       {/* frame */}
       <div className="intro-frame">
         <div className="intro-content">
-          <h1>Luxury Jewelry</h1>
+          <h1>Hridika Jewellery</h1>
 
           <p>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-            erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-            et ea
+            At Hridika Jewellery, we believe that jewellery is more 
+            than an accessory—it is a reflection of emotions, traditions, 
+            and stories that last a lifetime. Rooted in elegance and 
+            inspired by heritage, our brand is dedicated to creating 
+            exquisite jewellery that celebrates beauty in its most timeless form.
           </p>
 
           <button className="intro-btn">Shop Now</button>

@@ -226,7 +226,7 @@ export default function FilteredProducts() {
           </div>
 
           {/* Shop For Filter */}
-          <div className="filter-section">
+          {/*<div className="filter-section">
             <h4 className="filter-heading">Shop For</h4>
             <div className="filter-options">
               {shopForOptions.map((option) => (
@@ -240,7 +240,7 @@ export default function FilteredProducts() {
                 </label>
               ))}
             </div>
-          </div>
+          </div>*/}
 
           {/* Occasion Filter */}
           <div className="filter-section">

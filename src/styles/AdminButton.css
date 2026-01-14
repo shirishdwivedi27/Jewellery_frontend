@@ -1,7 +1,7 @@
 .admin-btn {
   position: fixed;
   top: 80px;          
-  right: 250px;
+  right: 200px;
   z-index: 10000;
 
   background: linear-gradient(135deg, #d4af37, #f5e08e);
