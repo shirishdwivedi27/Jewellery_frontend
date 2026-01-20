@@ -313,9 +313,9 @@ export default function AdminDashboard() {
           />
 
 
-            <Input label="Price" value={form.price} onChange={(v) => setForm({ ...form, price: v })} />
+            {/* <Input label="Price" value={form.price} onChange={(v) => setForm({ ...form, price: v })} />
             
-           
+            */}
 
             <Input label="Price" value={form.price} onChange={(v) => setForm({ ...form,price: v })}/>
 
