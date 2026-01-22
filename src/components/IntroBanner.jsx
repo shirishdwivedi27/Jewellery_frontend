@@ -52,7 +52,7 @@ export default function IntroBanner() {
             exquisite jewellery that celebrates beauty in its most timeless form.
           </p>
 
-          <button className="intro-btn">Shop Now</button>
+          <button className="intro-btn" >Shop Now</button>
         </div>
       </div>
     </section>
