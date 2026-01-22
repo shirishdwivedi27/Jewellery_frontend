@@ -31,12 +31,12 @@ export default function Navbar() {
         <ul className="navbar-menu">
           <li><a href="/" className="nav-link">Home</a></li>
           <li><a href="/products" className="nav-link">All Products</a></li>
-          <li className="dropdown">
+          {/* <li className="dropdown">
             <a href="#women" className="nav-link">Women</a>
           </li>
           <li className="dropdown">
             <a href="#men" className="nav-link">Men</a>
-          </li>
+          </li> */}
           <li><a href="/articles" className="nav-link">Articles</a></li>
           <li><a href="/bespoke" className="nav-link">Bespoke Customisation</a></li>
           <li><a href="/about" className="nav-link">About</a></li>

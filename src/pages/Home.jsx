@@ -29,6 +29,8 @@ export default function Home() {
   }, []);
 
   if (loading) return <div className="loading">Loading...</div>;
+  const featuredProducts = products.slice(0, 8);
+
 
   return (
     <div className="home">
@@ -43,7 +45,7 @@ export default function Home() {
           
           {error && <p className="error-message">Error: {error}</p>}
           
-          {products.length > 8 ? (
+          {/* {products.length > 4 ? (
             <div className="products-carousel">
               {products.map((p) => (
                 <ProductCard key={p.id} product={p} />
@@ -55,7 +57,13 @@ export default function Home() {
                 <ProductCard key={p.id} product={p} />
               ))}
             </div>
-          )}
+          )} */}
+            <div className="products-carousel vertical-carousel">
+              {featuredProducts.map((p) => (
+                <ProductCard key={p.id} product={p} />
+          ))}
+        </div>
+
 
           {products.length === 0 && !error && (
             <p className="no-products">No products available</p>

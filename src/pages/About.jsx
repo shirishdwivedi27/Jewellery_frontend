@@ -1,3 +1,4 @@
+import Footer from "../components/Footer";
 import "../styles/About.css";
 
 export default function About() {
@@ -35,6 +36,7 @@ export default function About() {
           />
         </div>
       </section>
+      <Footer/>
     </div>
   );
 }
