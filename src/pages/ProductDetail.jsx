@@ -56,8 +56,8 @@ export default function ProductDetail() {
 
           <div className="detail-trust">
             <p>✓ 100% Genuine</p>
-            <p>✓ Free Shipping on Orders Above ₹2,000</p>
-            <p>✓ 30-Day Return Policy</p>
+            <p>✓ Free Shipping on Orders </p>
+            {/* <p>✓ 30-Day Return Policy</p> */}
           </div>
         </div>
       </div>

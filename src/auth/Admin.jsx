@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import "../styles/Admin.css";
 
@@ -13,6 +14,8 @@ export default function AdminDashboard() {
   const token = localStorage.getItem("access_token");
   const [imageFile, setImageFile] = useState(null);
 
+
+
   const [form, setForm] = useState({
     name: "",
     category: "Rings",
@@ -25,8 +28,8 @@ export default function AdminDashboard() {
   });
 
 
-  // const API_BASE = "https://flask-api-s.onrender.com";
-const API_BASE = "http://localhost:5000";
+  const API_BASE = "https://flask-api-s.onrender.com";  //  https://flask-api-s.onrender.com;
+
 
   // const fetchProducts = async () => {
   //   const res = await fetch(`${API_BASE}/products`);   
@@ -46,7 +49,7 @@ const API_BASE = "http://localhost:5000";
     quantity: product.quantity,
     metal_name: product.metal_name,
     images: product.images,
-    price: product.price,
+    price: product.price
   });
 
   setShowModal(true);
@@ -69,7 +72,7 @@ const payload = {
             ? form.images 
             : products.find(p => p.id === editProductId)?.images
 };
-console.log("FINAL UPDATE PAYLOAD =>", payload);
+// console.log("FINAL UPDATE PAYLOAD =>", payload);
 await fetch(`${API_BASE}/products/${editProductId}`, {
   method: "PUT",
   headers: {
@@ -78,14 +81,11 @@ await fetch(`${API_BASE}/products/${editProductId}`, {
   },
   body: JSON.stringify(payload),
 });
-
-
   setShowModal(false);
   setIsEditMode(false);
   setEditProductId(null);
   fetchProducts();
 };
-
 
 // Delete Product
 const handleDelete = async (productId) => {
@@ -118,6 +118,8 @@ const handleDelete = async (productId) => {
   }
 };
 
+
+
   const fetchProducts = async () => {
   const res = await fetch(`${API_BASE}/products`, {
     headers: {
@@ -144,7 +146,11 @@ const handleDelete = async (productId) => {
     setOrders(data);
   };
 
-
+  // const fetchCustomers = async () => {
+  //   const res = await fetch(`${API_BASE}/api/admin/contacts`);
+  //   const data = await res.json();
+  //   setCustomers(data);
+  // };
   const handleImageSelect = (e) => {
   const file = e.target.files[0];
   if (!file) return;
@@ -158,7 +164,7 @@ const handleDelete = async (productId) => {
 
 
   const addProduct = async () => {
-     console.log("FORM DATA:", form);      
+    // console.log("FORM DATA:", form);       // ✅ yahan
     //  console.log("IMAGE:", form.images); 
     
     await fetch(`${API_BASE}/products`, {
@@ -266,7 +272,8 @@ const handleDelete = async (productId) => {
                       >
                         ✏️
                       </button>
-                        {/* Delete */}
+
+                      {/* Delete */}
                         <button
                           className="delete-btn"
                           onClick={() => handleDelete(p.id)}
@@ -274,6 +281,7 @@ const handleDelete = async (productId) => {
                           🗑️
                         </button>
                     </td>
+                   
 
                 </tr>
               ))}
@@ -347,12 +355,12 @@ const handleDelete = async (productId) => {
 
             <div className="row">
               <Select label="Category" value={form.category} onChange={(v) => setForm({ ...form, category: v })} />
-              <Select label="Metal" options={["Gold", "Silver"]} value={form.metal_name|| "Gold"} onChange={(v) => setForm({ ...form, metal_name: v })} />
+              <Select label="Metal" options={["Gold", "Silver"]} value={form.metal_name} onChange={(v) => setForm({ ...form, metal_name: v })} />
             </div>
 
             <div className="row">
               <Input label="Stock" value={form.stock} onChange={(v) => setForm({ ...form, stock: v })} />
-              <Input label="Size" value={form.quantity} onChange={(v) => setForm({ ...form, quantity: v })} />
+              <Input label="Quantity" value={form.quantity} onChange={(v) => setForm({ ...form, quantity: v })} />
             </div>
 
            {/* <Input label="Image URL" value={form.images} onChange={(v) => setForm({ ...form, images: v })} />*/}
@@ -362,6 +370,8 @@ const handleDelete = async (productId) => {
             accept="image/*"
             onChange={handleImageSelect} // <-- converts image to base64 and sets form.images
           />
+
+
             <Input label="Price" value={form.price} onChange={(v) => setForm({ ...form, price: v })} />
 
             <div className="modal-actions">
@@ -411,6 +421,3 @@ const Select = ({ label, value, onChange, options = ["Bangles","Rings", "Earring
     </select>
   </div>
 );
-
-
-// size = quantity
