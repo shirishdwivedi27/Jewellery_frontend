@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const API_BASE_URL =  "https://flask-api-s.onrender.com";
+const API_BASE_URL =  "/api";
 
 
 const api = axios.create({
@@ -43,7 +43,7 @@ export const getOrders = () => api.get("/orders");
 export const createOrder = (data) => api.post("/orders", data);
 
 // ---- CONTACT ----
-export const submitContact = (data) => api.post("/api/contact", data);
+export const submitContact = (data) => api.post("/contact", data);
 
 
 
