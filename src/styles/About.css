@@ -1,11 +1,11 @@
 .about-page {
   background: #fafafa;
-  color: #333;
+  color: #8b2c24 0%;
 }
 
 /* Hero */
 .about-hero {
-  background: linear-gradient(to right, #cfae70, #f5e6c8);
+  background: linear-gradient(to right, #d4af37, #f5e6c8);
   text-align: center;
   padding: 80px 20px;
 }
@@ -34,7 +34,7 @@
 
 .about-text h2 {
   margin-bottom: 10px;
-  color: #b8964c;
+  color: #8b2c24 50%;
 }
 
 .about-text p {

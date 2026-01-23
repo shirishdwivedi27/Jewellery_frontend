@@ -14,8 +14,12 @@ export default function FloatingContact() {
     e.preventDefault();
     setSending(true);
     setStatus(null);
+
+    // https://flask-api-s.onrender.com
+    // http://localhost:5000
+
     try {
-      const res = await fetch("https://flask-api-s.onrender.com/sendmail", {
+      const res = await fetch("http://localhost:5000/sendmail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),

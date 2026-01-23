@@ -13,22 +13,20 @@ export default function AdminDashboard() {
   const token = localStorage.getItem("access_token");
   const [imageFile, setImageFile] = useState(null);
 
-
-
   const [form, setForm] = useState({
     name: "",
     category: "Rings",
     description: "",
     stock: "",
     quantity: "",
-    metal_cat: "Gold",
+    metal_name: "Gold",
     images: "",
     price:"",
   });
 
 
-  const API_BASE = "https://flask-api-s.onrender.com";  //  "http://localhost:5000";
-
+  // const API_BASE = "https://flask-api-s.onrender.com";
+const API_BASE = "http://localhost:5000";
 
   // const fetchProducts = async () => {
   //   const res = await fetch(`${API_BASE}/products`);   
@@ -46,7 +44,7 @@ export default function AdminDashboard() {
     description: product.description,
     stock: product.stock,
     quantity: product.quantity,
-    metal_cat: product.metal_cat,
+    metal_name: product.metal_name,
     images: product.images,
     price: product.price,
   });
@@ -54,20 +52,70 @@ export default function AdminDashboard() {
   setShowModal(true);
 };
 
-  const updateProduct = async () => {
-  await fetch(`${API_BASE}/products/${editProductId}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(form),
-  });
+const updateProduct = async () => {
+      if (!token) {
+    alert("Session expired. Please login again.");
+    return;
+  }
+const payload = {
+  name: form.name,
+  category: form.category,
+  description: form.description,
+  metal_name: form.metal_name || "Gold",
+  stock: Number(form.stock || 0),
+  price: Number(form.price || 0),
+  quantity: form.quantity ? String(form.quantity) : "0",
+  images: form.images && form.images !== "" 
+            ? form.images 
+            : products.find(p => p.id === editProductId)?.images
+};
+console.log("FINAL UPDATE PAYLOAD =>", payload);
+await fetch(`${API_BASE}/products/${editProductId}`, {
+  method: "PUT",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+  body: JSON.stringify(payload),
+});
+
 
   setShowModal(false);
   setIsEditMode(false);
   setEditProductId(null);
   fetchProducts();
+};
+
+
+// Delete Product
+const handleDelete = async (productId) => {
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this product?");
+    if (!confirmDelete) return;
+
+  try {
+    const res =   await fetch(`${API_BASE}/products/${productId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+    const data = await res.json();
+
+    if (res.ok) {
+      alert("Product deleted successfully");
+
+      // Update frontend immediately
+      setProducts((prev) =>
+        prev.filter((product) => product.id !== productId)
+      );
+    } else {
+      alert(data.message || "Failed to delete product");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Server error while deleting product");
+  }
 };
 
   const fetchProducts = async () => {
@@ -96,11 +144,7 @@ export default function AdminDashboard() {
     setOrders(data);
   };
 
-  // const fetchCustomers = async () => {
-  //   const res = await fetch(`${API_BASE}/api/admin/contacts`);
-  //   const data = await res.json();
-  //   setCustomers(data);
-  // };
+
   const handleImageSelect = (e) => {
   const file = e.target.files[0];
   if (!file) return;
@@ -114,8 +158,8 @@ export default function AdminDashboard() {
 
 
   const addProduct = async () => {
-     console.log("FORM DATA:", form);       // ✅ yahan
-     console.log("IMAGE:", form.images); 
+     console.log("FORM DATA:", form);      
+    //  console.log("IMAGE:", form.images); 
     
     await fetch(`${API_BASE}/products`, {
       method: "POST",
@@ -174,7 +218,7 @@ export default function AdminDashboard() {
                         description: "",
                         stock: "",
                         quantity: "",
-                        metal_cat: "Gold",
+                        metal_name: "Gold",
                         images: "",
                         price: "",
                       });
@@ -194,7 +238,7 @@ export default function AdminDashboard() {
                 <th>Category</th>
                 <th>Price</th>
                 <th>Stock</th>
-                <th>Quantity</th>
+                <th>Size</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -222,6 +266,13 @@ export default function AdminDashboard() {
                       >
                         ✏️
                       </button>
+                        {/* Delete */}
+                        <button
+                          className="delete-btn"
+                          onClick={() => handleDelete(p.id)}
+                        >
+                          🗑️
+                        </button>
                     </td>
 
                 </tr>
@@ -296,12 +347,12 @@ export default function AdminDashboard() {
 
             <div className="row">
               <Select label="Category" value={form.category} onChange={(v) => setForm({ ...form, category: v })} />
-              <Select label="Metal" options={["Gold", "Silver"]} value={form.metal_cat} onChange={(v) => setForm({ ...form, metal_cat: v })} />
+              <Select label="Metal" options={["Gold", "Silver"]} value={form.metal_name|| "Gold"} onChange={(v) => setForm({ ...form, metal_name: v })} />
             </div>
 
             <div className="row">
               <Input label="Stock" value={form.stock} onChange={(v) => setForm({ ...form, stock: v })} />
-              <Input label="Quantity" value={form.quantity} onChange={(v) => setForm({ ...form, quantity: v })} />
+              <Input label="Size" value={form.quantity} onChange={(v) => setForm({ ...form, quantity: v })} />
             </div>
 
            {/* <Input label="Image URL" value={form.images} onChange={(v) => setForm({ ...form, images: v })} />*/}
@@ -311,13 +362,7 @@ export default function AdminDashboard() {
             accept="image/*"
             onChange={handleImageSelect} // <-- converts image to base64 and sets form.images
           />
-
-
             <Input label="Price" value={form.price} onChange={(v) => setForm({ ...form, price: v })} />
-            
-           
-
-            <Input label="Price" value={form.price} onChange={(v) => setForm({ ...form,price: v })}/>
 
             <div className="modal-actions">
               <button onClick={() => setShowModal(false)}>Cancel</button>
@@ -366,3 +411,6 @@ const Select = ({ label, value, onChange, options = ["Bangles","Rings", "Earring
     </select>
   </div>
 );
+
+
+// size = quantity

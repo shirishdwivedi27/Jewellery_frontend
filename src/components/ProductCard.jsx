@@ -14,10 +14,14 @@ export default function ProductCard({ product }) {
     return;
   }
 
+
+    // https://flask-api-s.onrender.com
+    // http://localhost:5000
+
   try {
     const token = localStorage.getItem("access_token");
 
-    const res = await fetch("https://flask-api-s.onrender.com/cart", {
+    const res = await fetch("http://localhost:5000/cart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

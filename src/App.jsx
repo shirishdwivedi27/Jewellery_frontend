@@ -40,23 +40,11 @@ useEffect(() => {
 
   const timer = setTimeout(() => {
     setShowLoginPrompt(true);
-  }, 9000);
+  }, 17000);
 
   return () => clearTimeout(timer);
 }, [user]);
-  // useEffect(() => {
-  //   if (user) return;
 
-  //   const alreadyShown = localStorage.getItem("login_prompt_shown");
-  //   if (alreadyShown) return;
-
-  //   const timer = setTimeout(() => {
-  //     setShowLoginPrompt(true);
-  //     localStorage.setItem("login_prompt_shown", "true");
-  //   }, 900); // 9 seconds
-
-  //   return () => clearTimeout(timer);
-  // }, [user]);
 
   return (
     <>

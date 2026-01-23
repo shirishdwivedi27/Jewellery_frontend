@@ -27,7 +27,10 @@ export default function Cart() {
     return;
   }
 
-  const res = await fetch("https://flask-api-s.onrender.com/orders", {
+    // https://flask-api-s.onrender.com
+    // http://localhost:5000
+
+  const res = await fetch("http://localhost:5000/orders", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
