@@ -46,18 +46,18 @@ export default function Footer() {
         <div className="footer-section">
           <h4>Quick Connect</h4>
 
-          <address>
+          {/* <address>
             <p>Greenland Apartment, 108, First Floor</p>
             <p>Babukhan Mall, Somajiguda</p>
             <p>Hyderabad, Telangana – 500082</p>
-          </address>
+          </address> */}
 
           <p><strong>Phone:</strong> <a href="tel:+919398072103">+91-93980 72103</a></p>
           <p><strong>Email:</strong> <a href="mailto:info@shirish.divedi951@gmail.com">info@shirishdivedi951@gmail.com</a></p>
 
           {/* Social Icons (TEXT BASED) */}
 
-          <div className="social-links">
+          {/* <div className="social-links">
             <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook">
               f
             </a>
@@ -67,7 +67,7 @@ export default function Footer() {
             <a href="https://wa.me/919398072103" target="_blank" rel="noreferrer" aria-label="WhatsApp">
               wa
             </a>
-          </div>
+          </div> */}
         </div>
 
       </div>
