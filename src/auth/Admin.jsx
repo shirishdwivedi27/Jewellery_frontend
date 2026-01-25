@@ -13,6 +13,18 @@ export default function AdminDashboard() {
   const token = localStorage.getItem("access_token");
   const [imageFile, setImageFile] = useState(null);
 
+  const [metalRates, setMetalRates] = useState({
+    gold: null,
+    silver: null,
+  });
+
+  const [showRateModal, setShowRateModal] = useState(false);
+  const [rateForm, setRateForm] = useState({
+    metal_type: "gold",
+    base_rate: "",
+    premium: "",
+  });
+
 
 
   const [form, setForm] = useState({
@@ -24,17 +36,15 @@ export default function AdminDashboard() {
     metal_name: "Gold",
     images: "",
     price:"",
+    weight: "",        // in future calc. yaha use kr skte hai lekin req ke acc..... noted
+    final_price: "" ,
+    making_charge: "",
+    price_per_gram: ""
   });
 
 
-  const API_BASE = "https://flask-api-s.onrender.com";  //  https://flask-api-s.onrender.com;
+  const API_BASE = "http://localhost:5000";  //"https://flask-api-s.onrender.com";  
 
-
-  // const fetchProducts = async () => {
-  //   const res = await fetch(`${API_BASE}/products`);   
-  //   const data = await res.json();
-  //   setProducts(data);
-  // };
 
   const openEditModal = (product) => {
   setIsEditMode(true);
@@ -59,18 +69,31 @@ const updateProduct = async () => {
     alert("Session expired. Please login again.");
     return;
   }
-const payload = {
+
+  const payload = {
   name: form.name,
   category: form.category,
   description: form.description,
-  metal_name: form.metal_name || "Gold",
-  stock: Number(form.stock || 0),
-  price: Number(form.price || 0),
-  quantity: form.quantity ? String(form.quantity) : "0",
-  images: form.images && form.images !== "" 
-            ? form.images 
-            : products.find(p => p.id === editProductId)?.images
+  stock: Number(form.stock),
+  quantity: form.quantity,
+  metal_name: form.metal_name,
+  images: form.images,
+  weight: Number(form.weight),
+  making_charge: Number(form.making_charge)
 };
+
+// const payload = {
+//   name: form.name,
+//   category: form.category,
+//   description: form.description,
+//   metal_name: form.metal_name || "Gold",
+//   stock: Number(form.stock || 0),
+//   price: Number(form.price || 0),
+//   quantity: form.quantity ? String(form.quantity) : "0",
+//   images: form.images && form.images !== "" 
+//             ? form.images 
+//             : products.find(p => p.id === editProductId)?.images
+// };
 // console.log("FINAL UPDATE PAYLOAD =>", payload);
 await fetch(`${API_BASE}/products/${editProductId}`, {
   method: "PUT",
@@ -84,6 +107,28 @@ await fetch(`${API_BASE}/products/${editProductId}`, {
   setIsEditMode(false);
   setEditProductId(null);
   fetchProducts();
+};
+
+const fetchMetalRates = async () => {
+  const res = await fetch(`${API_BASE}/api/admin/metal-rates`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await res.json();
+  setMetalRates(data);
+};
+
+const saveMetalRate = async () => {
+  await fetch(`${API_BASE}/api/admin/metal-rates`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(rateForm),
+  });
+
+  setShowRateModal(false);
+  fetchMetalRates();
 };
 
 // Delete Product
@@ -145,11 +190,7 @@ const handleDelete = async (productId) => {
     setOrders(data);
   };
 
-  // const fetchCustomers = async () => {
-  //   const res = await fetch(`${API_BASE}/api/admin/contacts`);
-  //   const data = await res.json();
-  //   setCustomers(data);
-  // };
+ 
   const handleImageSelect = (e) => {
   const file = e.target.files[0];
   if (!file) return;
@@ -183,7 +224,135 @@ const handleDelete = async (productId) => {
     fetchProducts();
     fetchOrders();
     fetchCustomers();
+    fetchMetalRates();
   }, []);
+
+ 
+  useEffect(() => {
+
+  if (!showModal || isEditMode) return;
+
+  if (!metalRates) return;
+
+  const metal = form.metal_name?.toLowerCase();
+  let calculatedPrice = "";
+
+  if (metal === "gold" && metalRates.gold) {
+    const goldRate = Number(metalRates.gold.base_rate || 0);
+    const goldPremium = Number(metalRates.gold.premium || 0);
+
+    calculatedPrice = goldRate + goldPremium / 10;
+  }
+
+  if (metal === "silver" && metalRates.silver) {
+    const silverRate = Number(metalRates.silver.base_rate || 0);
+    const silverPremium = Number(metalRates.silver.premium || 0);
+
+    calculatedPrice = silverRate + silverPremium / 1000;
+  }
+
+  if (calculatedPrice) {
+    setForm((prev) => ({
+      ...prev,
+      price_per_gram: calculatedPrice.toFixed(2),
+    }));
+  }
+  }, [
+    showModal,
+    form.metal_name,
+    metalRates,
+    isEditMode,
+  ]);
+
+
+useEffect(() => {
+  const price = Number(form.price_per_gram);
+  const weight = Number(form.weight);
+
+  if (!price || !weight) {
+    setForm((prev) => ({ ...prev, final_price: "" }));
+    return;
+  }
+
+  const finalPrice = price * weight;
+
+  setForm((prev) => ({
+    ...prev,
+    final_price: finalPrice.toFixed(2),
+  }));
+}, [form.weight]);
+
+
+useEffect(() => {
+  const final = Number(form.price_per_gram);
+  const making = Number(form.making_charge);
+
+  if (!final || !making) return;
+
+  const makingAmount = (final * making) / 100;
+
+  setForm((prev) => ({
+    ...prev,
+    final_price: (final + makingAmount).toFixed(2),
+  }));
+}, [form.making_charge]);
+
+
+
+
+
+//   useEffect(() => {
+//   if (!metalRates || isEditMode) return;
+
+//   const metal = form.metal_name?.toLowerCase();
+//   const rate = metalRates[metal];
+
+//   if (rate) {
+//     const basePrice =
+//       Number(rate.base_rate || 0) + Number(rate.premium || 0);
+
+//     setForm((prev) => ({
+//       ...prev,
+//       price: basePrice,
+//     }));
+//   }
+// }, [form.metal_name, metalRates]);
+
+// useEffect(() => {
+//   const price = parseFloat(form.price);
+//   const weight = parseFloat(form.weight);
+
+//   if (!price || !weight) {
+//     setForm((prev) => ({ ...prev, final_price: "" }));
+//     return;
+//   }
+
+//   const finalPrice = price * weight;
+
+//   setForm((prev) => ({
+//     ...prev,
+//     final_price: finalPrice.toFixed(2),
+//   }));
+// }, [form.price, form.weight]);
+
+
+// useEffect(() => {
+//   if (!showModal || !metalRates) return;
+
+//   const metal = form.metal_name.toLowerCase();
+//   const rate = metalRates[metal];
+//   if (!rate) return;
+
+//   const price =
+//     Number(rate.base_rate || 0) +
+//     Number(rate.premium || 0);
+
+//   setForm(prev => ({
+//     ...prev,
+//     price_per_gram: price.toFixed(2)
+//   }));
+// }, [showModal, form.metal_name, metalRates]);
+
 
   return (
     <div className="admin-container">
@@ -191,6 +360,29 @@ const handleDelete = async (productId) => {
         <h1>Hridika Jewels – Admin</h1>
         <button className="logout-btn">Logout</button>
       </header>
+      
+
+        <div className="rate-buttons">
+        <button
+          className="rate-btn gold"
+          onClick={() => {
+            setRateForm({ metal_type: "gold", base_rate: "", premium: "" });
+            setShowRateModal(true);
+          }}
+        >
+          🟡 Set Gold Rate
+        </button>
+
+        <button
+          className="rate-btn silver"
+          onClick={() => {
+            setRateForm({ metal_type: "silver", base_rate: "", premium: "" });
+            setShowRateModal(true);
+          }}
+        >
+        ⚪ Set Silver Rate
+        </button>
+      </div>
 
       <div className="stats">
         <Stat title="Total Products" value={products.length} icon="📦" />
@@ -225,7 +417,7 @@ const handleDelete = async (productId) => {
                         quantity: "",
                         metal_name: "Gold",
                         images: "",
-                        price: "",
+                        
                       });
                       setShowModal(true);
                     }}
@@ -371,7 +563,41 @@ const handleDelete = async (productId) => {
           />
 
 
-            <Input label="Price" value={form.price} onChange={(v) => setForm({ ...form,price: v })}/>
+            {/* <Input label="Price" value={form.price} onChange={(v) => setForm({ ...form,price: v })}/>
+
+            <Input
+                label="Price (per gram)"
+                 value={form.price}
+                  onChange={(v) => setForm({ ...form, price: v })}
+                      readOnly
+                    />
+
+                    <Input
+                      label="Weight (grams)"
+                      value={form.weight}
+                      onChange={(v) => setForm({ ...form, weight: v })}
+                    />
+
+                    <Input
+                      label="Final Price"
+                      value={form.final_price}
+                     readOnly
+                    /> */}
+                    <Input label="Price per gram" value={form.price_per_gram} readOnly />
+
+                    <Input
+                      label="Weight (grams)"
+                      value={form.weight}
+                      onChange={(v) => setForm({ ...form, weight: v })}
+                    />
+
+                    <Input
+                      label="Making Charges"
+                      value={form.making_charge}
+                      onChange={(v) => setForm({ ...form, making_charge: v })}
+                    />
+
+                  <Input label="Final Price" value={form.final_price} readOnly />
 
             <div className="modal-actions">
               <button onClick={() => setShowModal(false)}>Cancel</button>
@@ -389,6 +615,42 @@ const handleDelete = async (productId) => {
           </div>
         </div>
       )}
+
+      {showRateModal && (
+      <div className="modal-backdrop">
+      <div className="modal">
+      <h3>
+        Set {rateForm.metal_type.toUpperCase()} Rate
+      </h3>
+
+      <Input
+        label="Metal_Rate (per gram)"
+        value={rateForm.base_rate}
+        onChange={(v) =>
+          setRateForm({ ...rateForm, base_rate: v })
+        }
+      />
+
+        <Input
+          label="Premium"
+          value={rateForm.premium}
+          onChange={(v) =>
+          setRateForm({ ...rateForm, premium: v })
+        }
+        />
+
+        <div className="modal-actions">
+        <button onClick={() => setShowRateModal(false)}>
+          Cancel
+        </button>
+        <button className="primary-btn" onClick={saveMetalRate}>
+          Save Rate
+        </button>
+      </div>
+      </div>
+      </div>
+      )}
+
     </div>
   );
 }
