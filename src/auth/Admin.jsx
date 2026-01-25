@@ -43,7 +43,7 @@ export default function AdminDashboard() {
   });
 
 
-  const API_BASE = "http://localhost:5000";  //"https://flask-api-s.onrender.com";  
+  const API_BASE = "https://flask-api-s.onrender.com";  
 
 
   const openEditModal = (product) => {
@@ -165,7 +165,7 @@ const handleDelete = async (productId) => {
 
 
   const fetchProducts = async () => {
-  const res = await fetch(`${API_BASE}/products`, {
+  const res = await fetch(`${API_BASE}/api/products`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -284,7 +284,7 @@ useEffect(() => {
 
 
 useEffect(() => {
-  const final = Number(form.price_per_gram);
+  const final = Number(form.final_price);
   const making = Number(form.making_charge);
 
   if (!final || !making) return;
