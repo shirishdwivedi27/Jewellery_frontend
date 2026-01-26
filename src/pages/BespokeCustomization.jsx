@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import "../styles/Bespoke.css";
 import Footer from "../components/Footer";
@@ -10,64 +9,77 @@ export default function BespokeCustomization() {
     product: "",
     details: "",
     size: "",
-    image: null, // ✅ single image
+    image: null,
   });
 
+  /* ---------------- IMAGE → BASE64 ---------------- */
+  const fileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file); // includes mime type
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (err) => reject(err);
+    });
+  };
+
+  /* ---------------- INPUT HANDLERS ---------------- */
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, image: e.target.files[0] });
+    setFormData((prev) => ({ ...prev, image: e.target.files[0] }));
   };
 
-
-
+  /* ---------------- SUBMIT ---------------- */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const payload = new FormData();
-    payload.append("name", formData.name);
-    payload.append("phone", formData.phone);
-    payload.append("product", formData.product);
-    payload.append("details", formData.details);
-    payload.append("size", formData.size);
-
+    let base64Image = null;
     if (formData.image) {
-      payload.append("image", formData.image);
+      base64Image = await fileToBase64(formData.image);
     }
 
+    const payload = {
+      name: formData.name,
+      phone: formData.phone,
+      product: formData.product,
+      details: formData.details,
+      size: formData.size,
+      image: base64Image, // ✅ base64 string
+    };
 
     const token = localStorage.getItem("access_token");
+
     try {
       const res = await fetch("https://flask-api-s.onrender.com/api/bespoke-request", {
-      // const res = await fetch("http://localhost:5000/api/bespoke-request", {
         method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-        body: payload,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
       alert("Customization request submitted successfully!");
       console.log(data);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
       alert("Something went wrong!");
     }
   };
 
   return (
     <div className="bespoke-page">
-      {/* Hero */}
+      {/* HERO */}
       <section className="bespoke-hero">
         <h1>Bespoke Customisation</h1>
         <p>Design Jewellery That Is Truly Yours</p>
       </section>
 
-      {/* Steps */}
+      {/* STEPS */}
       <section className="bespoke-steps">
         <div className="step-card">
           <h3>1. Choose Design</h3>
@@ -136,7 +148,7 @@ export default function BespokeCustomization() {
             placeholder="Describe your design idea"
             required
             onChange={handleChange}
-          ></textarea>
+          />
 
           <input
             type="text"
@@ -146,7 +158,6 @@ export default function BespokeCustomization() {
             onChange={handleChange}
           />
 
-          {/* SINGLE IMAGE UPLOAD */}
           <label className="upload-label">
             Upload Reference Image
             <input

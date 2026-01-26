@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "../styles/Admin.css";
 import { useNavigate } from "react-router-dom";
+import { Bs0Circle } from "react-icons/bs";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("products");
@@ -46,7 +47,7 @@ export default function AdminDashboard() {
   });
 
 
-  const API_BASE = "https://flask-api-s.onrender.com";  
+  const API_BASE =  "https://flask-api-s.onrender.com";  
 
 
   const openEditModal = (product) => {
@@ -298,7 +299,6 @@ useEffect(() => {
   isEditMode,
   form.price_per_gram
 ]);
-
 
 useEffect(() => {
   const price = Number(form.price_per_gram);

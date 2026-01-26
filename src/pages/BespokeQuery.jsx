@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
-
-// http://localhost:5000/api/bespoke-requests
+// GET → http://localhost:5000/api/bespoke-requests
 
 export default function BespokeQuery() {
   const [bespokeList, setBespokeList] = useState([]);
@@ -13,14 +12,19 @@ export default function BespokeQuery() {
   const fetchBespokeRequests = async () => {
     const token = localStorage.getItem("access_token");
 
-    const res = await fetch("https://flask-api-s.onrender.com/api/bespoke-requests", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    try {
+      const res = await fetch("https://flask-api-s.onrender.com/api/bespoke-requests", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    const data = await res.json();
-    setBespokeList(data);
+      const data = await res.json();
+      setBespokeList(data);
+    } catch (err) {
+      console.error("Error fetching bespoke requests", err);
+    }
   };
 
   return (
@@ -40,22 +44,37 @@ export default function BespokeQuery() {
         </thead>
 
         <tbody>
-          {bespokeList.map((item) => (
-            <tr key={item.id}>
-              <td>{item.full_name}</td>
-              <td>{item.phone}</td>
-              <td>{item.product_type}</td>
-              <td>{item.design_details}</td>
-              <td>{item.size}</td>
-              <td>
-                {item.image_url && (
-                  <a href={item.image_url} target="_blank" rel="noreferrer">
-                    View
-                  </a>
-                )}
-              </td>
+          {bespokeList.length === 0 ? (
+            <tr>
+              <td colSpan="6">No Bespoke Requests Found</td>
             </tr>
-          ))}
+          ) : (
+            bespokeList.map((item) => (
+              <tr key={item.id}>
+                <td>{item.name}</td>
+                <td>{item.phone}</td>
+                <td>{item.product}</td>
+                <td>{item.details}</td>
+                <td>{item.size}</td>
+                <td>
+                  {item.image ? (
+                    <img
+                      src={item.image}   // ✅ base64 works directly
+                      alt="Design"
+                      style={{
+                        width: "80px",
+                        height: "80px",
+                        objectFit: "cover",
+                        borderRadius: "6px",
+                      }}
+                    />
+                  ) : (
+                    "No Image"
+                  )}
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>
