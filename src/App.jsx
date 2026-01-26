@@ -29,6 +29,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "./auth/AuthContext";
 import LoginPrompt from "./components/LoginPrompt";
 import AdminButton from "./components/AdminButton";
+import BespokeQuery from "./pages/BespokeQuery";
 
 
 export default function App() {
@@ -83,7 +84,7 @@ useEffect(() => {
               </ProtectedRoute>
             }
        />
-
+          <Route path="/admin/bespoke" element={<ProtectedRoute><BespokeQuery/></ProtectedRoute>} />
           <Route path="/bespoke" element={<BespokeCustomization />} />
           <Route path="/about" element={<About />} />
           <Route path="/api/orders/:id" element={<OrderDetails />} />

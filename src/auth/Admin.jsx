@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../styles/Admin.css";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("products");
@@ -9,6 +10,7 @@ export default function AdminDashboard() {
   const [showModal, setShowModal] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editProductId, setEditProductId] = useState(null);
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("access_token");
   const [imageFile, setImageFile] = useState(null);
@@ -39,26 +41,32 @@ export default function AdminDashboard() {
     weight: "",        // in future calc. yaha use kr skte hai lekin req ke acc..... noted
     final_price: "" ,
     making_charge: "",
-    price_per_gram: ""
+    price_per_gram: "",
+    gst_val:""
   });
 
 
-  const API_BASE = "https://flask-api-s.onrender.com";  
+  const API_BASE = "http://localhost:5000";  
 
 
   const openEditModal = (product) => {
   setIsEditMode(true);
   setEditProductId(product.id);
 
-  setForm({
-    name: product.name,
-    category: product.category,
-    description: product.description,
-    stock: product.stock,
-    quantity: product.quantity,
-    metal_name: product.metal_name,
-    images: product.images,
-    price: product.price
+    setForm({
+    name: product.name || "",
+    category: product.category || "Rings",
+    description: product.description || "",
+    stock: product.stock || "",
+    quantity: product.quantity || "",
+    metal_name: product.metal_name || "Gold",
+    images: product.images || "",
+    price: product.price || "",
+    weight: product.weight || "",
+    final_price: product.final_price || "",
+    making_charge: product.making_charge || "",
+    price_per_gram: product.price_per_gram || "",
+    gst_val: product.gst_val || ""
   });
 
   setShowModal(true);
@@ -75,26 +83,18 @@ const updateProduct = async () => {
   category: form.category,
   description: form.description,
   stock: Number(form.stock),
-  quantity: form.quantity,
+  quantity: Number(form.quantity),
   metal_name: form.metal_name,
   images: form.images,
+
   weight: Number(form.weight),
-  making_charge: Number(form.making_charge)
+  making_charge: Number(form.making_charge),
+
+  price_per_gram: Number(form.price_per_gram),
+  gst_val: Number(form.gst_val),
+  final_price: Number(form.final_price)
 };
 
-// const payload = {
-//   name: form.name,
-//   category: form.category,
-//   description: form.description,
-//   metal_name: form.metal_name || "Gold",
-//   stock: Number(form.stock || 0),
-//   price: Number(form.price || 0),
-//   quantity: form.quantity ? String(form.quantity) : "0",
-//   images: form.images && form.images !== "" 
-//             ? form.images 
-//             : products.find(p => p.id === editProductId)?.images
-// };
-// console.log("FINAL UPDATE PAYLOAD =>", payload);
 await fetch(`${API_BASE}/products/${editProductId}`, {
   method: "PUT",
   headers: {
@@ -228,11 +228,47 @@ const handleDelete = async (productId) => {
   }, []);
 
  
-  useEffect(() => {
+  // useEffect(() => {
 
-  if (!showModal || isEditMode) return;
+  // if (!showModal || isEditMode) return;
 
+  // if (!metalRates) return;
+
+  // const metal = form.metal_name?.toLowerCase();
+  // let calculatedPrice = "";
+
+  // if (metal === "gold" && metalRates.gold) {
+  //   const goldRate = Number(metalRates.gold.base_rate || 0);
+  //   const goldPremium = Number(metalRates.gold.premium || 0);
+
+  //   calculatedPrice = goldRate + goldPremium / 10;
+  // }
+
+  // if (metal === "silver" && metalRates.silver) {
+  //   const silverRate = Number(metalRates.silver.base_rate || 0);
+  //   const silverPremium = Number(metalRates.silver.premium || 0);
+
+  //   calculatedPrice = silverRate + silverPremium / 1000;
+  // }
+
+  // if (calculatedPrice) {
+  //   setForm((prev) => ({
+  //     ...prev,
+  //     price_per_gram: calculatedPrice.toFixed(2),
+  //   }));
+  // }
+  // }, [
+  //   showModal,
+  //   form.metal_name,
+  //   metalRates,
+  //   isEditMode,
+  // ]);
+
+useEffect(() => {
+  if (!showModal) return;
   if (!metalRates) return;
+
+  if (isEditMode && form.price_per_gram) return;
 
   const metal = form.metal_name?.toLowerCase();
   let calculatedPrice = "";
@@ -240,14 +276,12 @@ const handleDelete = async (productId) => {
   if (metal === "gold" && metalRates.gold) {
     const goldRate = Number(metalRates.gold.base_rate || 0);
     const goldPremium = Number(metalRates.gold.premium || 0);
-
     calculatedPrice = goldRate + goldPremium / 10;
   }
 
   if (metal === "silver" && metalRates.silver) {
     const silverRate = Number(metalRates.silver.base_rate || 0);
     const silverPremium = Number(metalRates.silver.premium || 0);
-
     calculatedPrice = silverRate + silverPremium / 1000;
   }
 
@@ -257,12 +291,13 @@ const handleDelete = async (productId) => {
       price_per_gram: calculatedPrice.toFixed(2),
     }));
   }
-  }, [
-    showModal,
-    form.metal_name,
-    metalRates,
-    isEditMode,
-  ]);
+}, [
+  showModal,
+  form.metal_name,
+  metalRates,
+  isEditMode,
+  form.price_per_gram
+]);
 
 
 useEffect(() => {
@@ -288,15 +323,30 @@ useEffect(() => {
   const making = Number(form.making_charge);
 
   if (!final || !making) return;
-
-  const makingAmount = (final * making) / 100;
+  
+  const makingAmount = ( final * making) / 100;
 
   setForm((prev) => ({
     ...prev,
-    final_price: (final + makingAmount).toFixed(2),
+    final_price: (final + makingAmount).toFixed(5),
   }));
 }, [form.making_charge]);
 
+
+
+useEffect(() => {
+  const final = Number(form.final_price);
+  const gstval = Number(form.gst_val);
+
+  if (!final || !gstval) return;
+
+  const official_amount = (final * (gstval + 100))/100 ;
+
+  setForm((prev) => ({
+    ...prev,
+    final_price: (official_amount).toFixed(2),
+  }));
+}, [form.gst_val]);
 
 
 
@@ -358,7 +408,8 @@ useEffect(() => {
     <div className="admin-container">
       <header className="admin-header">
         <h1>Hridika Jewels – Admin</h1>
-        <button className="logout-btn">Logout</button>
+        <button className="logout-btn"
+        onClick={()=>navigate("/admin/bespoke")}>Bespoke_Query</button>
       </header>
       
 
@@ -417,7 +468,11 @@ useEffect(() => {
                         quantity: "",
                         metal_name: "Gold",
                         images: "",
-                        
+                        weight: "",
+                        final_price: "",
+                        making_charge: "",
+                        price_per_gram: "",
+                        gst_val: ""
                       });
                       setShowModal(true);
                     }}
@@ -595,6 +650,12 @@ useEffect(() => {
                       label="Making Charges"
                       value={form.making_charge}
                       onChange={(v) => setForm({ ...form, making_charge: v })}
+                    />
+
+                    <Input
+                      label="GST.IN"
+                      value={form.gst_val}
+                      onChange={(v) => setForm({ ...form, gst_val: v })}
                     />
 
                   <Input label="Final Price" value={form.final_price} readOnly />
