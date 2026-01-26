@@ -46,10 +46,7 @@ export default function BespokeCustomization() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let base64Image = null;
-    if (formData.image) {
-      base64Image = await fileToBase64(formData.image);
-    }
+    
 
     const payload = {
       name: formData.name,
