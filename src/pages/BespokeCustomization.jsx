@@ -13,15 +13,25 @@ export default function BespokeCustomization() {
   });
 
   /* ---------------- IMAGE → BASE64 ---------------- */
-  const fileToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file); // includes mime type
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (err) => reject(err);
-    });
-  };
+  // const fileToBase64 = (file) => {
+  //   return new Promise((resolve, reject) => {
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(file); // includes mime type
+  //     reader.onload = () => resolve(reader.result);
+  //     reader.onerror = (err) => reject(err);
+  //   });
+  // };
+ 
+  const handleImageSelect = (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
 
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    setForm({ ...form, image: reader.result }); // ✅ base64 URL
+  };
+  reader.readAsDataURL(file);
+};
   /* ---------------- INPUT HANDLERS ---------------- */
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,7 +57,7 @@ export default function BespokeCustomization() {
       product: formData.product,
       details: formData.details,
       size: formData.size,
-      image: base64Image, // ✅ base64 string
+      image: formData.image, // ✅ base64 string
     };
 
     const token = localStorage.getItem("access_token");
@@ -157,7 +167,7 @@ export default function BespokeCustomization() {
             required
             onChange={handleChange}
           />
-
+{/* 
           <label className="upload-label">
             Upload Reference Image
             <input
@@ -166,7 +176,14 @@ export default function BespokeCustomization() {
               required
               onChange={handleFileChange}
             />
-          </label>
+          </label> */}
+
+            <label className="upload-label">Product Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageSelect} // <-- converts image to base64 and sets form.images
+          />
 
           <button type="submit">Submit Customization Request</button>
         </form>
