@@ -13,7 +13,7 @@ export default function BespokeQuery() {
   const fetchBespokeRequests = async () => {
     const token = localStorage.getItem("access_token");
 
-    const res = await fetch("http://localhost:5000/api/bespoke-requests", {
+    const res = await fetch("https://flask-api-s.onrender.com/api/bespoke-requests", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

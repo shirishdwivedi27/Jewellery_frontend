@@ -46,7 +46,7 @@ export default function AdminDashboard() {
   });
 
 
-  const API_BASE = "http://localhost:5000";  
+  const API_BASE = "https://flask-api-s.onrender.com";  
 
 
   const openEditModal = (product) => {

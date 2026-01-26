@@ -41,8 +41,8 @@ export default function BespokeCustomization() {
 
     const token = localStorage.getItem("access_token");
     try {
-      // const res = await fetch("https://flask-api-s.onrender.com/api/bespoke-request", {
-      const res = await fetch("http://localhost:5000/api/bespoke-request", {
+      const res = await fetch("https://flask-api-s.onrender.com/api/bespoke-request", {
+      // const res = await fetch("http://localhost:5000/api/bespoke-request", {
         method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
