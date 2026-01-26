@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../styles/Admin.css";
 import { useNavigate } from "react-router-dom";
-import { Bs0Circle } from "react-icons/bs";
+
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("products");
