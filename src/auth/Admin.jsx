@@ -606,7 +606,7 @@ useEffect(() => {
 
             <div className="row">
               <Input label="Stock" value={form.stock} onChange={(v) => setForm({ ...form, stock: v })} />
-              <Input label="Quantity" value={form.quantity} onChange={(v) => setForm({ ...form, quantity: v })} />
+              <Input label="Size" value={form.quantity} onChange={(v) => setForm({ ...form, quantity: v })} />
             </div>
 
            {/* <Input label="Image URL" value={form.images} onChange={(v) => setForm({ ...form, images: v })} />*/}
