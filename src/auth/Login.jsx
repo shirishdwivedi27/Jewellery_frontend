@@ -31,7 +31,7 @@ export default function Login({ isModal = false, onSuccess }) {
   try {
     setLoading(true);
 
-    const res = await fetch("http://localhost:5000/request-phone-otp", {
+    const res = await fetch("https://flask-api-s.onrender.com/request-phone-otp", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ phone })
@@ -98,7 +98,7 @@ const handleVerifyOtp = async (e) => {
   setLoading(true);
 
   try {
-    const res = await fetch("http://localhost:5000/verify-phone-otp", {
+    const res = await fetch("https://flask-api-s.onrender.com/verify-phone-otp", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ otp, sessionToken })
