@@ -3,7 +3,7 @@ import { useAuth } from "../auth/AuthContext";
 import { getCart, removeFromCart } from "../api/api";
 import { useNavigate } from "react-router-dom";
 import "../styles/Cart.css";
-import { KeyboardHideIcon } from "@shopify/polaris-icons";
+
 
 export default function Cart() {
   const { user } = useAuth();
@@ -12,17 +12,35 @@ export default function Cart() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const token = localStorage.getItem("access_token");
-  const invalidItem = cartItems.find(item => item.quantity < 10);
+  
+  
 //  agar wo chah raha hai ki har item min 10 ho to hame cartItems   ki lenght check krni hogi mtlb 
 // agar uski len 3 hai to total prod 30 hone chayie 
 // line no 22{ jaha if(invalidItem )  cond hai } ki condition change hogi jisme hoga ki cartItems me mujhe loop lagake har item  ki len leke ani hogi uske bad wo len meri jydad honi chayie cartItems.length*10 ke tabhi order proceed hoga
 
+
+  const totalPrice = cartItems.reduce(
+  (sum, item) => sum + item.total_price,
+  0
+);
+
+const totalQuantity = cartItems.reduce(
+  (sum, item) => sum + item.quantity,
+  0
+);
+
+const minRequiredQuantity = cartItems.length * 10;
+
+
   const handleCheckout = async () => {
-  if (invalidItem) {
-  alert("Each item quantity must be at least 10");
+  if (totalQuantity < minRequiredQuantity) {
+  alert(
+    `Minimum order quantity is ${minRequiredQuantity}.` +`You currently have ${totalQuantity}.`
+  );
   return;
-}
+  }
+
+
   const token = localStorage.getItem("access_token");
 
   if (!token) {
@@ -190,13 +208,6 @@ const handleSizeChange = (productId, value) => {
 };
 
 
-  const totalPrice = cartItems.reduce(
-    (sum, item) => {
-      const price = parseInt(item.price?.replace(/[^\d]/g, "") || 0);
-      return sum + price * item.quantity;
-    },
-    0
-  );
 
   if (loading) return <div className="loading">Loading cart...</div>;
 
@@ -220,7 +231,7 @@ const handleSizeChange = (productId, value) => {
               {cartItems.map((item) => (
                 <div key={item.product_id} className="cart-item">
                   <img 
-                    src={item.images || "https://via.placeholder.com/100"} 
+                    src={item.images} 
                     alt={item.name}
                   />
                   <div className="item-details">

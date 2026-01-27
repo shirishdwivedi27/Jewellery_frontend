@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  // ✅ LOGIN
+  // // ✅ LOGIN
   const login = async (email, password) => {
     const res = await loginUser({ email, password });
 
@@ -37,6 +37,12 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("access_token", access_token);
     localStorage.setItem("user", JSON.stringify(user));
 
+    setUser(user);
+    return user;
+  };
+  const loginset = (user, access_token) => {
+    localStorage.setItem("access_token", access_token);
+    localStorage.setItem("user", JSON.stringify(user));
     setUser(user);
     return user;
   };
@@ -71,7 +77,7 @@ const register = async (username, email, password) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, login, register, logout }}
+      value={{ user, login, loginset, register, logout }}
     >
       {children}
     </AuthContext.Provider>
