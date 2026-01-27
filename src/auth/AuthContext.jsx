@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   // ✅ REGISTER (SAME AS LOGIN)
-const register = async (username, email, password) => {
+const register = async (username, email, password, phone) => {
   const res = await registerUser({
     user_id: username,   // keep this as you want
     username,
