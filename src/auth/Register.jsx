@@ -10,6 +10,7 @@ export default function Register() {
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [phone , setPhone] = useState("");
   const { register } = useAuth();
   const navigate = useNavigate();
 
@@ -25,7 +26,7 @@ export default function Register() {
   setLoading(true);
 
   try {
-    const user = await register(username, email, password);
+    const user = await register(username, email, password, phone);
 
     if (user.role === "admin") {
       navigate("/admin");
@@ -73,6 +74,18 @@ export default function Register() {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="phone">Contact No.</label>
+            <input
+              id="phone"
+              type="phone"
+              placeholder="Enter your Contact no."
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
               required
             />
           </div>

@@ -54,6 +54,7 @@ const register = async (username, email, password) => {
     username,
     email,
     password,
+    phone,
   });
 
   const { access_token, user } = res.data;
