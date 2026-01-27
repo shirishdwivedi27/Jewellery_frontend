@@ -59,7 +59,7 @@ export default function BespokeQuery() {
                 <td>
                   {item.image ? (
                     <img
-                      src={item.image}   // ✅ base64 works directly
+                      src={item.image}   
                       alt="Design"
                       style={{
                         width: "80px",

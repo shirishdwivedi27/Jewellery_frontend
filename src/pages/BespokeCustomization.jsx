@@ -9,18 +9,9 @@ export default function BespokeCustomization() {
     product: "",
     details: "",
     size: "",
-    image: null,
+    image: "",
   });
 
-  /* ---------------- IMAGE → BASE64 ---------------- */
-  // const fileToBase64 = (file) => {
-  //   return new Promise((resolve, reject) => {
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(file); // includes mime type
-  //     reader.onload = () => resolve(reader.result);
-  //     reader.onerror = (err) => reject(err);
-  //   });
-  // };
  
   const handleImageSelect = (e) => {
   const file = e.target.files[0];
@@ -164,22 +155,12 @@ export default function BespokeCustomization() {
             required
             onChange={handleChange}
           />
-{/* 
-          <label className="upload-label">
-            Upload Reference Image
-            <input
-              type="file"
-              accept="image/*"
-              required
-              onChange={handleFileChange}
-            />
-          </label> */}
 
             <label className="upload-label">Product Image</label>
           <input
             type="file"
             accept="image/*"
-            onChange={handleImageSelect} // <-- converts image to base64 and sets form.images
+            onChange={handleImageSelect} 
           />
 
           <button type="submit">Submit Customization Request</button>

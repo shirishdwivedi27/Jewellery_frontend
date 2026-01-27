@@ -50,7 +50,7 @@ export default function ProductCard({ product }) {
     <div className="product-card" onClick={handleProductClick}>
       <div className="product-image-container">
         <img 
-          src={product.images || "https://via.placeholder.com/300x400?text=Product"} 
+          src={product.images} 
           alt={product.name} 
           className="product-image"
         />

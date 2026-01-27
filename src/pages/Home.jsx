@@ -45,19 +45,6 @@ export default function Home() {
           
           {error && <p className="error-message">Error: {error}</p>}
           
-          {/* {products.length > 4 ? (
-            <div className="products-carousel">
-              {products.map((p) => (
-                <ProductCard key={p.id} product={p} />
-              ))}
-            </div>
-          ) : (
-            <div className="products-grid">
-              {products.map((p) => (
-                <ProductCard key={p.id} product={p} />
-              ))}
-            </div>
-          )} */}
             <div className="products-carousel vertical-carousel">
               {featuredProducts.map((p) => (
                 <ProductCard key={p.id} product={p} />
@@ -86,35 +73,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trust Section */}
-      {/* <section className="trust-section">
-        <div className="container">
-          <div className="trust-grid">
-            <div className="trust-card">
-              <div className="trust-icon">🚚</div>
-              <h3>Free Shipping</h3>
-              <p>Above 2lakhs cart value</p>
-            </div>
-            <div className="trust-card">
-              <div className="trust-icon">♻️</div>
-              <h3>30 Days Return</h3>
-              <p>Please review all the terms</p>
-            </div>
-            <div className="trust-card">
-              <div className="trust-icon">⭐</div>
-              <h3>100% Genuine</h3>
-              <p>We provide 92.5% Pure Silver</p>
-            </div>
-            <div className="trust-card">
-              <div className="trust-icon">🔒</div>
-              <h3>Secure Payment</h3>
-              <p>With Razorpay, your payment is secure</p>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-      {/* Footer */}
       <Footer />
     </div>
   );
